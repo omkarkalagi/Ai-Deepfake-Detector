@@ -491,3 +491,12 @@ def get_model_stats():
         'f1_score': 88.3,
         'version': 'v2.1'
     })
+
+# Health check endpoint for Vercel
+@app.route('/api/health')
+def health_check():
+    return jsonify({
+        'status': 'healthy',
+        'message': 'AI Deepfake Detector is running',
+        'timestamp': datetime.now().isoformat()
+    })
