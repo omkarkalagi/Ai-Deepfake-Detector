@@ -31,13 +31,39 @@ def create_html_page(title, content, extra_js=""):
     <title>{title}</title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Fallback CSS for icons if Font Awesome fails -->
+    <style>
+        .fas, .far, .fab {
+            font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro", "Font Awesome 5 Free", "Font Awesome 5 Pro", sans-serif;
+            font-weight: 900;
+        }
+        /* Fallback for common icons */
+        .fa-robot:before { content: "🤖"; }
+        .fa-home:before { content: "🏠"; }
+        .fa-images:before { content: "🖼️"; }
+        .fa-chart-bar:before { content: "📊"; }
+        .fa-cogs:before { content: "⚙️"; }
+        .fa-info-circle:before { content: "ℹ️"; }
+        .fa-envelope:before { content: "✉️"; }
+        .fa-camera:before { content: "📷"; }
+        .fa-upload:before { content: "⬆️"; }
+        .fa-search:before { content: "🔍"; }
+        .fa-shield-alt:before { content: "🛡️"; }
+        .fa-eye:before { content: "👁️"; }
+        .fa-chart-line:before { content: "📈"; }
+        .fa-star:before { content: "⭐"; }
+        .fa-bolt:before { content: "⚡"; }
+        .fa-brain:before { content: "🧠"; }
+        .fa-shield-check:before { content: "✅"; }
+    </style>
     <style>
         :root {{
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -54,6 +80,41 @@ def create_html_page(title, content, extra_js=""):
             background: #f8f9fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }}
+
+        body.loaded {{
+            opacity: 1;
+        }}
+
+        /* Loading indicator */
+        .loading-indicator {{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }}
+
+        .loading-spinner {{
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }}
+
+        @keyframes spin {{
+            0% {{ transform: rotate(0deg); }}
+            100% {{ transform: rotate(360deg); }}
         }}
 
         /* Navbar Styling */
@@ -301,6 +362,12 @@ def create_html_page(title, content, extra_js=""):
     </style>
 </head>
 <body>
+    <!-- Loading Indicator -->
+    <div id="loading-indicator" class="loading-indicator">
+        <div class="loading-spinner"></div>
+        <p>Loading AI Deepfake Detector...</p>
+    </div>
+
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="/">
@@ -361,31 +428,59 @@ def create_html_page(title, content, extra_js=""):
     </footer>
 
     <!-- Bootstrap JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Fallback Bootstrap functionality -->
+    <script>
+        // Ensure Bootstrap is loaded, if not provide basic functionality
+        if (typeof bootstrap === 'undefined') {{
+            console.warn('Bootstrap not loaded, using fallback functionality');
+            window.bootstrap = {{
+                Tooltip: function() {{ return {{ dispose: function() {{}} }}; }}
+            }};
+        }}
+    </script>
 
     <!-- Custom JavaScript -->
     <script>
         // Initialize tooltips and popovers
         document.addEventListener('DOMContentLoaded', function() {{
-            // Initialize Bootstrap tooltips
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {{
-                return new bootstrap.Tooltip(tooltipTriggerEl);
-            }});
+            console.log('AI Deepfake Detector loaded successfully');
+
+            // Check if Bootstrap is loaded
+            if (typeof bootstrap !== 'undefined') {{
+                // Initialize Bootstrap tooltips
+                try {{
+                    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {{
+                        return new bootstrap.Tooltip(tooltipTriggerEl);
+                    }});
+                    console.log('Bootstrap tooltips initialized');
+                }} catch (e) {{
+                    console.warn('Tooltip initialization failed:', e);
+                }}
+            }}
 
             // Add fade-in animation to cards
             const cards = document.querySelectorAll('.feature-card, .stat-card, .content-card, .gallery-item');
-            const observer = new IntersectionObserver((entries) => {{
-                entries.forEach(entry => {{
-                    if (entry.isIntersecting) {{
-                        entry.target.classList.add('fade-in-up');
-                    }}
-                }});
-            }}, {{ threshold: 0.1 }});
+            if (window.IntersectionObserver) {{
+                const observer = new IntersectionObserver((entries) => {{
+                    entries.forEach(entry => {{
+                        if (entry.isIntersecting) {{
+                            entry.target.classList.add('fade-in-up');
+                        }}
+                    }});
+                }}, {{ threshold: 0.1 }});
 
-            cards.forEach(card => {{
-                observer.observe(card);
-            }});
+                cards.forEach(card => {{
+                    observer.observe(card);
+                }});
+            }} else {{
+                // Fallback for browsers without IntersectionObserver
+                cards.forEach(card => {{
+                    card.classList.add('fade-in-up');
+                }});
+            }}
 
             // Smooth scrolling for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {{
@@ -397,6 +492,15 @@ def create_html_page(title, content, extra_js=""):
                     }}
                 }});
             }});
+
+            // Hide loading indicator and show content
+            const loadingIndicator = document.getElementById('loading-indicator');
+            if (loadingIndicator) {{
+                loadingIndicator.style.display = 'none';
+            }}
+            document.body.classList.add('loaded');
+
+            console.log('Page initialization complete');
         }});
     </script>
 
