@@ -33,7 +33,9 @@ A state-of-the-art deepfake detection system with beautiful web interface, compr
 ## 🚀 Quick Start
 
 ### 🌐 Live Demo
-**[View Live Application on Vercel](https://ai-deepfake-detector.vercel.app)**
+**[View Live Application on Vercel](https://ai-deepfake-detector-omkar-ds-projects.vercel.app)**
+
+> **Status**: Deployment optimized for Vercel serverless platform
 
 ### Prerequisites
 - Python 3.8+
