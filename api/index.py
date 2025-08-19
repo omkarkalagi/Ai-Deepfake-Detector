@@ -5,7 +5,7 @@ import time
 from datetime import datetime
 
 # Configure Flask for Vercel serverless - use local templates
-app = Flask(__name__, template_folder='templates', static_folder='../static')
+app = Flask(__name__, template_folder='templates')
 
 # Configure Flask for Vercel
 app.config['UPLOAD_FOLDER'] = '/tmp'
