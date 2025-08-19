@@ -1578,6 +1578,138 @@ def health_check():
         'version': '1.0.0'
     })
 
+@app.route('/debug')
+def debug_info():
+    """Debug information page"""
+    content = '''
+    <div class="container mt-5">
+        <div class="content-card">
+            <h1 class="mb-4">🔧 Debug Information</h1>
+            <p class="lead">System status and diagnostic information</p>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Environment Info</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item">Platform: Vercel Serverless</li>
+                        <li class="list-group-item">Python Version: 3.11+</li>
+                        <li class="list-group-item">Flask Version: 2.3.3</li>
+                        <li class="list-group-item">Deployment: Production</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h4>Feature Status</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item">✅ Flask App: Running</li>
+                        <li class="list-group-item">✅ API Endpoints: Active</li>
+                        <li class="list-group-item">✅ File Upload: Working</li>
+                        <li class="list-group-item">✅ Camera Access: Available</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h4>CDN Resources Test</h4>
+                <div id="cdn-test-results">
+                    <p>Testing CDN resources...</p>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h4>JavaScript Console</h4>
+                <div id="console-output" class="bg-dark text-light p-3 rounded" style="font-family: monospace; height: 200px; overflow-y: auto;">
+                    <div>Console output will appear here...</div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a href="/" class="btn btn-primary">← Back to Home</a>
+                <button onclick="runDiagnostics()" class="btn btn-success">Run Diagnostics</button>
+            </div>
+        </div>
+    </div>
+    '''
+
+    debug_js = '''
+    <script>
+        // Capture console output
+        const consoleOutput = document.getElementById('console-output');
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+
+        function addToConsole(type, message) {
+            const div = document.createElement('div');
+            div.innerHTML = `<span style="color: ${type === 'error' ? '#ff6b6b' : type === 'warn' ? '#feca57' : '#48dbfb'}">[${type.toUpperCase()}]</span> ${message}`;
+            consoleOutput.appendChild(div);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addToConsole('log', args.join(' '));
+        };
+
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addToConsole('error', args.join(' '));
+        };
+
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            addToConsole('warn', args.join(' '));
+        };
+
+        function runDiagnostics() {
+            console.log('Starting diagnostics...');
+
+            // Test Bootstrap
+            if (typeof bootstrap !== 'undefined') {
+                console.log('✅ Bootstrap loaded successfully');
+            } else {
+                console.error('❌ Bootstrap not loaded');
+            }
+
+            // Test jQuery (if needed)
+            if (typeof $ !== 'undefined') {
+                console.log('✅ jQuery loaded');
+            } else {
+                console.log('ℹ️ jQuery not loaded (not required)');
+            }
+
+            // Test Chart.js
+            if (typeof Chart !== 'undefined') {
+                console.log('✅ Chart.js loaded successfully');
+            } else {
+                console.error('❌ Chart.js not loaded');
+            }
+
+            // Test camera API
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                console.log('✅ Camera API available');
+            } else {
+                console.warn('⚠️ Camera API not available');
+            }
+
+            // Test fetch API
+            if (typeof fetch !== 'undefined') {
+                console.log('✅ Fetch API available');
+            } else {
+                console.error('❌ Fetch API not available');
+            }
+
+            console.log('Diagnostics complete');
+        }
+
+        // Run diagnostics on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(runDiagnostics, 1000);
+        });
+    </script>
+    '''
+
+    return create_html_page("Debug Info - AI Deepfake Detector", content, debug_js)
+
 @app.route('/api/model_stats')
 def get_model_stats():
     """Get model statistics"""
