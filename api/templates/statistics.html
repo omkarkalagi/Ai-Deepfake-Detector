@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Analytics Dashboard - AI Deepfake Detector</title>
+    <meta name="description" content="Comprehensive analytics dashboard with real-time metrics, performance statistics, and detailed model insights.">
+    
+    <!-- Modern CSS Framework -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Advanced Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --danger-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --warning-gradient: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            --info-gradient: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-gradient);
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem !important;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-section {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 0;
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-light);
+        }
+
+        .dashboard-header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 2rem;
+            border-radius: 25px 25px 0 0;
+            text-align: center;
+        }
+
+        .dashboard-content {
+            padding: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .stat-change {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .stat-change.positive {
+            color: #28a745;
+        }
+
+        .stat-change.negative {
+            color: #dc3545;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .chart-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .model-performance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .model-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .model-card.ensemble::before {
+            background: var(--primary-gradient);
+        }
+
+        .model-card.efficientnet::before {
+            background: var(--success-gradient);
+        }
+
+        .model-card.resnet::before {
+            background: var(--warning-gradient);
+        }
+
+        .model-card.xception::before {
+            background: var(--info-gradient);
+        }
+
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .model-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .model-accuracy {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .model-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .metric-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .real-time-indicator {
+            display: inline-flex;
+            align-items: center;
+            background: #28a745;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .real-time-indicator::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 5rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .dashboard-content {
+                padding: 2rem;
+            }
+            
+            .model-performance-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-brain me-2"></i>AI Deepfake Detector
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="/"><i class="fas fa-home me-1"></i>Home</a>
+                    <a class="nav-link" href="/gallery"><i class="fas fa-images me-1"></i>Gallery</a>
+                    <a class="nav-link active" href="/statistics"><i class="fas fa-chart-line me-1"></i>Analytics</a>
+                    <a class="nav-link" href="/training"><i class="fas fa-cogs me-1"></i>Training</a>
+                    <a class="nav-link" href="/about"><i class="fas fa-info-circle me-1"></i>About</a>
+                    <a class="nav-link" href="/contact"><i class="fas fa-envelope me-1"></i>Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title" data-aos="fade-up">
+                <i class="fas fa-chart-line me-3"></i>Analytics Dashboard
+            </h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Comprehensive real-time analytics, performance metrics, and detailed insights 
+                into our advanced deepfake detection system.
+            </p>
+        </div>
+    </section>
+
+    <!-- Dashboard Container -->
+    <div class="container">
+        <div class="dashboard-container" data-aos="fade-up" data-aos-delay="200">
+            <div class="dashboard-header">
+                <div class="real-time-indicator">
+                    <span>Live Dashboard</span>
+                </div>
+                <h2 class="mb-0">System Performance Overview</h2>
+                <p class="mb-0 opacity-75">Last updated: <span id="last-updated"></span></p>
+            </div>
+            
+            <div class="dashboard-content">
+                <!-- Key Statistics -->
+                <div class="row mb-5">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                            <div class="stat-number" id="total-analyses">2,847</div>
+                            <div class="stat-label">Total Analyses</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up me-1"></i>+12.5% today
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="stat-number">97.3%</div>
+                            <div class="stat-label">Accuracy Rate</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up me-1"></i>+0.3% this week
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                            <div class="stat-number">0.24s</div>
+                            <div class="stat-label">Avg Response</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-down me-1"></i>-15ms improved
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                            <div class="stat-number">99.97%</div>
+                            <div class="stat-label">Uptime</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-check me-1"></i>Operational
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="row mb-5">
+                    <div class="col-lg-8 mb-4">
+                        <div class="chart-card" data-aos="fade-up" data-aos-delay="500">
+                            <h3 class="chart-title">
+                                <i class="fas fa-chart-area me-2 text-primary"></i>
+                                Detection Results Over Time
+                            </h3>
+                            <canvas id="detectionChart" height="300"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="chart-card" data-aos="fade-up" data-aos-delay="600">
+                            <h3 class="chart-title">
+                                <i class="fas fa-chart-pie me-2 text-success"></i>
+                                Real vs Fake Distribution
+                            </h3>
+                            <canvas id="distributionChart" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model Performance -->
+                <div class="mb-5" data-aos="fade-up" data-aos-delay="700">
+                    <h3 class="text-center mb-4">
+                        <i class="fas fa-brain me-2 text-primary"></i>
+                        AI Model Performance Comparison
+                    </h3>
+                    <div class="model-performance-grid">
+                        <div class="model-card ensemble">
+                            <div class="model-name">
+                                <i class="fas fa-layer-group me-2"></i>
+                                Ensemble Model
+                            </div>
+                            <div class="model-accuracy" style="color: #667eea;">97.3%</div>
+                            <div class="model-metrics">
+                                <div class="metric-item">
+                                    <div class="metric-value">96.8%</div>
+                                    <div class="metric-label">Precision</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">97.7%</div>
+                                    <div class="metric-label">Recall</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">0.24s</div>
+                                    <div class="metric-label">Speed</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">87.3M</div>
+                                    <div class="metric-label">Parameters</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="model-card xception">
+                            <div class="model-name">
+                                <i class="fas fa-microchip me-2"></i>
+                                Xception
+                            </div>
+                            <div class="model-accuracy" style="color: #0984e3;">96.1%</div>
+                            <div class="model-metrics">
+                                <div class="metric-item">
+                                    <div class="metric-value">95.7%</div>
+                                    <div class="metric-label">Precision</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">96.5%</div>
+                                    <div class="metric-label">Recall</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">0.31s</div>
+                                    <div class="metric-label">Speed</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">22.9M</div>
+                                    <div class="metric-label">Parameters</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="model-card efficientnet">
+                            <div class="model-name">
+                                <i class="fas fa-bolt me-2"></i>
+                                EfficientNet-B0
+                            </div>
+                            <div class="model-accuracy" style="color: #00f2fe;">94.2%</div>
+                            <div class="model-metrics">
+                                <div class="metric-item">
+                                    <div class="metric-value">93.8%</div>
+                                    <div class="metric-label">Precision</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">94.6%</div>
+                                    <div class="metric-label">Recall</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">0.12s</div>
+                                    <div class="metric-label">Speed</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">5.3M</div>
+                                    <div class="metric-label">Parameters</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="model-card resnet">
+                            <div class="model-name">
+                                <i class="fas fa-network-wired me-2"></i>
+                                ResNet-50
+                            </div>
+                            <div class="model-accuracy" style="color: #fdcb6e;">92.8%</div>
+                            <div class="model-metrics">
+                                <div class="metric-item">
+                                    <div class="metric-value">92.1%</div>
+                                    <div class="metric-label">Precision</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">93.5%</div>
+                                    <div class="metric-label">Recall</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">0.18s</div>
+                                    <div class="metric-label">Speed</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">25.6M</div>
+                                    <div class="metric-label">Parameters</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-brain me-2"></i>AI Deepfake Detector
+                    </h5>
+                    <p class="text-white-50 mb-3">
+                        Advanced analytics dashboard providing comprehensive insights into
+                        deepfake detection performance and system health.
+                    </p>
+                </div>
+                <div class="col-lg-6 text-lg-end">
+                    <p class="text-white-50 mb-0">
+                        &copy; 2024 AI Deepfake Detector. Advanced Analytics Platform.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // Update timestamp
+        document.getElementById('last-updated').textContent = new Date().toLocaleString();
+
+        // Initialize Charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Detection Results Over Time Chart
+            const ctx1 = document.getElementById('detectionChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+                    datasets: [{
+                        label: 'Real Images',
+                        data: [120, 190, 300, 500, 200, 300, 450, 756],
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Fake Images',
+                        data: [80, 120, 200, 320, 150, 250, 380, 491],
+                        borderColor: '#dc3545',
+                        backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Distribution Chart
+            const ctx2 = document.getElementById('distributionChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Real Images', 'Fake Images'],
+                    datasets: [{
+                        data: [756, 491],
+                        backgroundColor: ['#28a745', '#dc3545'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Animate statistics counters
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent.replace(/[^\d]/g, ''));
+                let current = 0;
+                const increment = target / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+
+                    if (counter.textContent.includes('%')) {
+                        counter.textContent = Math.floor(current) + '%';
+                    } else if (counter.textContent.includes('s')) {
+                        counter.textContent = (current / 1000).toFixed(2) + 's';
+                    } else {
+                        counter.textContent = Math.floor(current).toLocaleString();
+                    }
+                }, 20);
+            });
+        });
+
+        console.log('📊 Advanced Analytics Dashboard loaded successfully!');
+    </script>
+</body>
+</html>

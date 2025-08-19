@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Gallery - AI Deepfake Detector</title>
+    <meta name="description" content="Explore real examples of deepfake detection with detailed analysis results and confidence scores.">
+    
+    <!-- Modern CSS Framework -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --danger-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-gradient);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem !important;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-section {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 2rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .result-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .result-badge.real {
+            background: var(--success-gradient);
+        }
+
+        .result-badge.fake {
+            background: var(--danger-gradient);
+        }
+
+        .image-placeholder {
+            height: 250px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-placeholder::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .gallery-card:hover .image-placeholder::after {
+            left: 100%;
+        }
+
+        .fake-placeholder {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .real-placeholder {
+            background: linear-gradient(135deg, #26de81, #20bf6b);
+        }
+
+        .political-placeholder {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+        }
+
+        .sports-placeholder {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+        }
+
+        .tech-placeholder {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        }
+
+        .entertainment-placeholder {
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+        }
+
+        .analysis-details {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .confidence-meter {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 5rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-brain me-2"></i>AI Deepfake Detector
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="/"><i class="fas fa-home me-1"></i>Home</a>
+                    <a class="nav-link active" href="/gallery"><i class="fas fa-images me-1"></i>Gallery</a>
+                    <a class="nav-link" href="/statistics"><i class="fas fa-chart-line me-1"></i>Analytics</a>
+                    <a class="nav-link" href="/training"><i class="fas fa-cogs me-1"></i>Training</a>
+                    <a class="nav-link" href="/about"><i class="fas fa-info-circle me-1"></i>About</a>
+                    <a class="nav-link" href="/contact"><i class="fas fa-envelope me-1"></i>Contact</a>
+                </div>
+
+                <!-- Political Figure Deepfake -->
+                <div class="gallery-card" data-category="political" data-aos="fade-up" data-aos-delay="300">
+                    <span class="result-badge fake">FAKE - 91.3%</span>
+                    <div class="image-placeholder political-placeholder">
+                        <i class="fas fa-mask"></i>
+                    </div>
+                    <h4 class="mb-3">
+                        <i class="fas fa-landmark me-2 text-primary"></i>
+                        Political Figure Deepfake
+                    </h4>
+                    <p class="text-muted mb-3">
+                        Sophisticated deepfake of a political leader detected through analysis
+                        of micro-expressions and lighting inconsistencies around facial features.
+                    </p>
+
+                    <div class="analysis-details">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold">Confidence Level</span>
+                            <span class="text-danger fw-bold">91.3%</span>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="confidence-fill bg-danger" style="width: 91.3%"></div>
+                        </div>
+
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <div class="stat-value">0.31s</div>
+                                <div class="stat-label">Processing</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">ResNet-50</div>
+                                <div class="stat-label">Model</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">High</div>
+                                <div class="stat-label">Risk Level</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sports Celebrity Authentic -->
+                <div class="gallery-card" data-category="sports" data-aos="fade-up" data-aos-delay="400">
+                    <span class="result-badge real">REAL - 96.8%</span>
+                    <div class="image-placeholder sports-placeholder">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h4 class="mb-3">
+                        <i class="fas fa-medal me-2 text-warning"></i>
+                        Sports Celebrity
+                    </h4>
+                    <p class="text-muted mb-3">
+                        Authentic photograph of a famous cricket player from live match coverage.
+                        Natural skin texture and consistent environmental lighting confirmed.
+                    </p>
+
+                    <div class="analysis-details">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold">Confidence Level</span>
+                            <span class="text-success fw-bold">96.8%</span>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="confidence-fill bg-success" style="width: 96.8%"></div>
+                        </div>
+
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <div class="stat-value">0.16s</div>
+                                <div class="stat-label">Processing</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">EfficientNet</div>
+                                <div class="stat-label">Model</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">Very Low</div>
+                                <div class="stat-label">Risk Level</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech CEO Deepfake -->
+                <div class="gallery-card" data-category="tech" data-aos="fade-up" data-aos-delay="500">
+                    <span class="result-badge fake">FAKE - 89.4%</span>
+                    <div class="image-placeholder tech-placeholder">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h4 class="mb-3">
+                        <i class="fas fa-laptop-code me-2 text-info"></i>
+                        Tech CEO Deepfake
+                    </h4>
+                    <p class="text-muted mb-3">
+                        AI-generated video frame of a technology executive. Detected through
+                        analysis of eye movement patterns and facial geometry inconsistencies.
+                    </p>
+
+                    <div class="analysis-details">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold">Confidence Level</span>
+                            <span class="text-danger fw-bold">89.4%</span>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="confidence-fill bg-danger" style="width: 89.4%"></div>
+                        </div>
+
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <div class="stat-value">0.25s</div>
+                                <div class="stat-label">Processing</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">Ensemble</div>
+                                <div class="stat-label">Model</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">Medium</div>
+                                <div class="stat-label">Risk Level</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Entertainment Industry Authentic -->
+                <div class="gallery-card" data-category="celebrity" data-aos="fade-up" data-aos-delay="600">
+                    <span class="result-badge real">REAL - 97.5%</span>
+                    <div class="image-placeholder entertainment-placeholder">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h4 class="mb-3">
+                        <i class="fas fa-video me-2 text-success"></i>
+                        Entertainment Industry
+                    </h4>
+                    <p class="text-muted mb-3">
+                        Genuine behind-the-scenes photograph from a movie set. High-quality
+                        professional lighting and authentic facial expressions confirmed.
+                    </p>
+
+                    <div class="analysis-details">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold">Confidence Level</span>
+                            <span class="text-success fw-bold">97.5%</span>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="confidence-fill bg-success" style="width: 97.5%"></div>
+                        </div>
+
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <div class="stat-value">0.21s</div>
+                                <div class="stat-label">Processing</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">Xception</div>
+                                <div class="stat-label">Model</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">Very Low</div>
+                                <div class="stat-label">Risk Level</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="700">
+                <div style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 25px; padding: 3rem; border: 1px solid rgba(255, 255, 255, 0.3);">
+                    <h3 class="mb-3" style="color: #2c3e50;">
+                        <i class="fas fa-rocket me-2 text-primary"></i>
+                        Try Our Advanced Detection System
+                    </h3>
+                    <p class="text-muted mb-4">
+                        Upload your own images to experience our state-of-the-art deepfake detection
+                        technology with real-time analysis and detailed confidence metrics.
+                    </p>
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
+                        <a href="/" class="btn btn-primary btn-lg">
+                            <i class="fas fa-upload me-2"></i>Upload & Analyze
+                        </a>
+                        <a href="/statistics" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-chart-line me-2"></i>View Analytics
+                        </a>
+                        <a href="/about" class="btn btn-outline-secondary btn-lg">
+                            <i class="fas fa-info-circle me-2"></i>Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-brain me-2"></i>AI Deepfake Detector
+                    </h5>
+                    <p class="text-white-50 mb-3">
+                        Professional-grade AI platform for detecting synthetic media with industry-leading
+                        accuracy and comprehensive analysis capabilities.
+                    </p>
+                </div>
+                <div class="col-lg-6 text-lg-end">
+                    <div class="d-flex justify-content-lg-end gap-4 mb-3">
+                        <a href="/" class="text-white-50 text-decoration-none">Home</a>
+                        <a href="/statistics" class="text-white-50 text-decoration-none">Analytics</a>
+                        <a href="/about" class="text-white-50 text-decoration-none">About</a>
+                        <a href="/contact" class="text-white-50 text-decoration-none">Contact</a>
+                    </div>
+                    <p class="text-white-50 mb-0">
+                        &copy; 2024 AI Deepfake Detector. Advanced Neural Network Platform.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryCards = document.querySelectorAll('.gallery-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                // Filter cards
+                galleryCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                        card.setAttribute('data-aos', 'fade-up');
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Refresh AOS
+                AOS.refresh();
+            });
+        });
+
+        // Animate confidence bars on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const confidenceFill = entry.target.querySelector('.confidence-fill');
+                    if (confidenceFill) {
+                        const width = confidenceFill.style.width;
+                        confidenceFill.style.width = '0%';
+                        setTimeout(() => {
+                            confidenceFill.style.width = width;
+                        }, 200);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        galleryCards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // Enhanced navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.querySelector('.navbar-brand').style.color = '#2c3e50';
+                navbar.querySelectorAll('.nav-link').forEach(link => {
+                    link.style.color = '#6c757d';
+                });
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.1)';
+                navbar.querySelector('.navbar-brand').style.color = 'white';
+                navbar.querySelectorAll('.nav-link').forEach(link => {
+                    link.style.color = 'rgba(255, 255, 255, 0.9)';
+                });
+            }
+        });
+
+        console.log('🖼️ Gallery loaded with advanced filtering and animations!');
+    </script>
+</body>
+</html>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title" data-aos="fade-up">
+                <i class="fas fa-images me-3"></i>Detection Gallery
+            </h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Explore real-world examples of deepfake detection with detailed analysis results, 
+                confidence scores, and advanced feature breakdowns from our AI models.
+            </p>
+            
+            <!-- Filter Tabs -->
+            <div class="filter-tabs" data-aos="fade-up" data-aos-delay="200">
+                <button class="filter-btn active" data-filter="all">All Examples</button>
+                <button class="filter-btn" data-filter="celebrity">Celebrity</button>
+                <button class="filter-btn" data-filter="political">Political</button>
+                <button class="filter-btn" data-filter="sports">Sports</button>
+                <button class="filter-btn" data-filter="tech">Technology</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="py-5">
+        <div class="container">
+            <div class="gallery-grid">
+                <!-- Celebrity Deepfake Example -->
+                <div class="gallery-card" data-category="celebrity" data-aos="fade-up" data-aos-delay="100">
+                    <span class="result-badge fake">FAKE - 94.7%</span>
+                    <div class="image-placeholder fake-placeholder">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h4 class="mb-3">
+                        <i class="fas fa-star me-2 text-warning"></i>
+                        Celebrity Face Swap
+                    </h4>
+                    <p class="text-muted mb-3">
+                        AI-generated face swap of a famous Bollywood actor detected through 
+                        temporal inconsistencies and unnatural facial feature mapping.
+                    </p>
+                    
+                    <div class="analysis-details">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold">Confidence Level</span>
+                            <span class="text-danger fw-bold">94.7%</span>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="confidence-fill bg-danger" style="width: 94.7%"></div>
+                        </div>
+                        
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <div class="stat-value">0.28s</div>
+                                <div class="stat-label">Processing</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">Ensemble</div>
+                                <div class="stat-label">Model</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">High</div>
+                                <div class="stat-label">Risk Level</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Authentic Portrait Example -->
+                <div class="gallery-card" data-category="celebrity" data-aos="fade-up" data-aos-delay="200">
+                    <span class="result-badge real">REAL - 98.2%</span>
+                    <div class="image-placeholder real-placeholder">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h4 class="mb-3">
+                        <i class="fas fa-check-circle me-2 text-success"></i>
+                        Authentic Portrait
+                    </h4>
+                    <p class="text-muted mb-3">
+                        Genuine photograph with natural lighting, authentic facial characteristics, 
+                        and consistent micro-expressions throughout the image.
+                    </p>
+                    
+                    <div class="analysis-details">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold">Confidence Level</span>
+                            <span class="text-success fw-bold">98.2%</span>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="confidence-fill bg-success" style="width: 98.2%"></div>
+                        </div>
+                        
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <div class="stat-value">0.19s</div>
+                                <div class="stat-label">Processing</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">Xception</div>
+                                <div class="stat-label">Model</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">Very Low</div>
+                                <div class="stat-label">Risk Level</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
