@@ -92,6 +92,57 @@ class AdvancedDeepfakeDetector:
             """API endpoint to get model statistics."""
             return jsonify(self.model_metrics)
 
+        # Additional page routes
+        @self.app.route('/gallery')
+        def gallery():
+            """Gallery page with deepfake examples."""
+            return render_template('gallery.html')
+
+        @self.app.route('/training')
+        def training():
+            """Training dashboard page."""
+            return render_template('training.html')
+
+        @self.app.route('/statistics')
+        def statistics():
+            """Statistics and analytics page."""
+            return render_template('statistics.html')
+
+        @self.app.route('/about')
+        def about():
+            """About page."""
+            return render_template('about.html')
+
+        @self.app.route('/contact')
+        def contact():
+            """Contact page."""
+            return render_template('contact.html')
+
+        @self.app.route('/documentation')
+        def documentation():
+            """API documentation page."""
+            return render_template('documentation.html')
+
+        @self.app.route('/realtime')
+        def realtime():
+            """Real-time detection page."""
+            return render_template('realtime.html')
+
+        @self.app.route('/api_explorer')
+        def api_explorer():
+            """API explorer page."""
+            return render_template('api_explorer.html')
+
+        @self.app.route('/batch_processing')
+        def batch_processing():
+            """Batch processing page."""
+            return render_template('batch_processing.html')
+
+        @self.app.route('/home')
+        def home():
+            """Alternative home page."""
+            return render_template('home.html')
+
     def allowed_file(self, filename):
         """Check if file has allowed extension."""
         ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
