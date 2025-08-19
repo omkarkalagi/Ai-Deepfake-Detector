@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics - AI Deepfake Detector{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">
+                <i class="fas fa-chart-bar me-3"></i>Detection Statistics
+            </h1>
+            <p class="lead mb-5">
+                Comprehensive analytics and performance metrics of our deepfake detection system.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Key Metrics -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <div class="stat-number">1,247</div>
+                <h5>Total Analyses</h5>
+                <p class="text-muted">Images processed</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <div class="stat-number">92.8%</div>
+                <h5>Accuracy Rate</h5>
+                <p class="text-muted">Detection accuracy</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <div class="stat-number">756</div>
+                <h5>Real Images</h5>
+                <p class="text-muted">Authentic detected</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <div class="stat-number">491</div>
+                <h5>Fake Images</h5>
+                <p class="text-muted">Deepfakes detected</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Charts -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="stat-card">
+                <h5 class="mb-4"><i class="fas fa-chart-pie me-2"></i>Detection Results</h5>
+                <canvas id="resultsChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="stat-card">
+                <h5 class="mb-4"><i class="fas fa-chart-bar me-2"></i>Confidence Distribution</h5>
+                <canvas id="confidenceChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Performance Metrics -->
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h5><i class="fas fa-tachometer-alt me-2"></i>Performance</h5>
+                <div class="mt-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Precision:</span>
+                        <strong>94.1%</strong>
+                    </div>
+                    <div class="progress mb-2">
+                        <div class="progress-bar bg-success" style="width: 94.1%"></div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <span>Recall:</span>
+                        <strong>91.5%</strong>
+                    </div>
+                    <div class="progress mb-2">
+                        <div class="progress-bar bg-info" style="width: 91.5%"></div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <span>F1 Score:</span>
+                        <strong>92.8%</strong>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-warning" style="width: 92.8%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h5><i class="fas fa-clock me-2"></i>Processing Speed</h5>
+                <div class="mt-3">
+                    <div class="text-center">
+                        <div class="stat-number" style="font-size: 2rem;">0.18s</div>
+                        <p class="text-muted">Average processing time</p>
+                    </div>
+                    <hr>
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Processing time includes image preprocessing, feature extraction, and model inference.
+                    </small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h5><i class="fas fa-calendar me-2"></i>Recent Activity</h5>
+                <div class="mt-3">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Today:</span>
+                        <strong>47 analyses</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>This week:</span>
+                        <strong>312 analyses</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>This month:</span>
+                        <strong>1,247 analyses</strong>
+                    </div>
+                    <hr>
+                    <small class="text-muted">
+                        <i class="fas fa-trending-up me-1"></i>
+                        23% increase from last month
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Model Information -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="content-card">
+                <h4><i class="fas fa-brain me-2"></i>Model Information</h4>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h6>Architecture Details:</h6>
+                        <ul>
+                            <li>Deep Convolutional Neural Network</li>
+                            <li>ResNet-50 backbone with custom head</li>
+                            <li>Multi-scale feature extraction</li>
+                            <li>Attention mechanisms for fine details</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Training Dataset:</h6>
+                        <ul>
+                            <li>2.5M authentic images</li>
+                            <li>1.8M deepfake samples</li>
+                            <li>Multiple generation techniques</li>
+                            <li>Diverse demographic representation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info mt-4">
+                    <h6><i class="fas fa-info-circle me-2"></i>Demo Mode Notice</h6>
+                    <p class="mb-0">
+                        This is a demonstration version. All statistics and analysis results are simulated 
+                        for educational purposes. The actual model performance may vary.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Results Chart
+    const ctx1 = document.getElementById('resultsChart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'doughnut',
+        data: {
+            labels: ['Real Images', 'Fake Images'],
+            datasets: [{
+                data: [756, 491],
+                backgroundColor: ['#28a745', '#dc3545'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+    
+    // Confidence Chart
+    const ctx2 = document.getElementById('confidenceChart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['50-60%', '60-70%', '70-80%', '80-90%', '90-100%'],
+            datasets: [{
+                label: 'Number of Detections',
+                data: [45, 89, 156, 234, 723],
+                backgroundColor: '#667eea',
+                borderRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

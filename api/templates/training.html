@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block title %}Training Dashboard - AI Deepfake Detector{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">
+                <i class="fas fa-cogs me-3"></i>Training Dashboard
+            </h1>
+            <p class="lead mb-5">
+                Monitor model training progress and performance improvements.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Training Status -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="content-card">
+                <h4><i class="fas fa-chart-line me-2"></i>Training Progress</h4>
+                <div class="mt-4">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Current Epoch:</span>
+                        <strong>47 / 100</strong>
+                    </div>
+                    <div class="progress mb-3" style="height: 20px;">
+                        <div class="progress-bar" style="width: 47%">47%</div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Training Accuracy:</span>
+                        <strong>94.2%</strong>
+                    </div>
+                    <div class="progress mb-3">
+                        <div class="progress-bar bg-success" style="width: 94.2%"></div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Validation Accuracy:</span>
+                        <strong>92.8%</strong>
+                    </div>
+                    <div class="progress mb-3">
+                        <div class="progress-bar bg-info" style="width: 92.8%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="content-card">
+                <h5><i class="fas fa-info-circle me-2"></i>Training Info</h5>
+                <table class="table table-borderless">
+                    <tr>
+                        <td>Status:</td>
+                        <td><span class="badge bg-success">Running</span></td>
+                    </tr>
+                    <tr>
+                        <td>Started:</td>
+                        <td>2 hours ago</td>
+                    </tr>
+                    <tr>
+                        <td>ETA:</td>
+                        <td>3.2 hours</td>
+                    </tr>
+                    <tr>
+                        <td>Learning Rate:</td>
+                        <td>0.001</td>
+                    </tr>
+                    <tr>
+                        <td>Batch Size:</td>
+                        <td>32</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Training Metrics -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="content-card">
+                <h5><i class="fas fa-chart-area me-2"></i>Loss Curves</h5>
+                <canvas id="lossChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="content-card">
+                <h5><i class="fas fa-chart-line me-2"></i>Accuracy Curves</h5>
+                <canvas id="accuracyChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Model Configuration -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="content-card">
+                <h4><i class="fas fa-sliders-h me-2"></i>Model Configuration</h4>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h6>Architecture:</h6>
+                        <ul>
+                            <li>Base Model: ResNet-50</li>
+                            <li>Custom Classification Head</li>
+                            <li>Dropout: 0.5</li>
+                            <li>Batch Normalization</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Training Parameters:</h6>
+                        <ul>
+                            <li>Optimizer: Adam</li>
+                            <li>Learning Rate: 0.001</li>
+                            <li>Weight Decay: 1e-4</li>
+                            <li>Scheduler: StepLR</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="alert alert-info mt-4">
+        <h5><i class="fas fa-info-circle me-2"></i>Demo Mode</h5>
+        <p class="mb-0">
+            This training dashboard shows simulated training progress for demonstration purposes. 
+            In a real implementation, this would connect to actual training processes and display 
+            live metrics from model training runs.
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Loss Chart
+    const ctx1 = document.getElementById('lossChart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'line',
+        data: {
+            labels: Array.from({length: 47}, (_, i) => i + 1),
+            datasets: [{
+                label: 'Training Loss',
+                data: Array.from({length: 47}, (_, i) => 2.5 - (i * 0.04) + Math.random() * 0.1),
+                borderColor: '#dc3545',
+                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                tension: 0.4
+            }, {
+                label: 'Validation Loss',
+                data: Array.from({length: 47}, (_, i) => 2.7 - (i * 0.035) + Math.random() * 0.15),
+                borderColor: '#fd7e14',
+                backgroundColor: 'rgba(253, 126, 20, 0.1)',
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    
+    // Accuracy Chart
+    const ctx2 = document.getElementById('accuracyChart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: Array.from({length: 47}, (_, i) => i + 1),
+            datasets: [{
+                label: 'Training Accuracy',
+                data: Array.from({length: 47}, (_, i) => 0.5 + (i * 0.009) + Math.random() * 0.02),
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                tension: 0.4
+            }, {
+                label: 'Validation Accuracy',
+                data: Array.from({length: 47}, (_, i) => 0.45 + (i * 0.01) + Math.random() * 0.03),
+                borderColor: '#17a2b8',
+                backgroundColor: 'rgba(23, 162, 184, 0.1)',
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    min: 0,
+                    max: 1
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block title %}Gallery - AI Deepfake Detector{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">
+                <i class="fas fa-images me-3"></i>Deepfake Detection Gallery
+            </h1>
+            <p class="lead mb-5">
+                Examples of detected deepfakes and authentic images from our analysis system.
+            </p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Celebrity Deepfake Example -->
+        <div class="col-md-6">
+            <div class="gallery-item">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5><i class="fas fa-user-secret me-2"></i>Celebrity Deepfake</h5>
+                    <span class="fake-badge">FAKE - 91.2%</span>
+                </div>
+                <div class="image-placeholder fake-placeholder">
+                    <i class="fas fa-user-secret fa-3x"></i>
+                </div>
+                <p class="mt-3">
+                    AI-generated face swap of a famous Bollywood actor. Our model detected temporal 
+                    inconsistencies and unnatural facial features typical of deepfake generation.
+                </p>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <small class="text-muted">
+                            <i class="fas fa-clock me-1"></i>Processing: 0.22s
+                        </small>
+                    </div>
+                    <div class="col-6 text-end">
+                        <small class="text-muted">
+                            <i class="fas fa-eye me-1"></i>Features: 47
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Authentic Portrait -->
+        <div class="col-md-6">
+            <div class="gallery-item">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5><i class="fas fa-user-check me-2"></i>Authentic Portrait</h5>
+                    <span class="real-badge">REAL - 96.5%</span>
+                </div>
+                <div class="image-placeholder real-placeholder">
+                    <i class="fas fa-user-check fa-3x"></i>
+                </div>
+                <p class="mt-3">
+                    Genuine photograph with natural lighting and authentic facial characteristics. 
+                    High confidence score indicates authentic content with no manipulation detected.
+                </p>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <small class="text-muted">
+                            <i class="fas fa-clock me-1"></i>Processing: 0.17s
+                        </small>
+                    </div>
+                    <div class="col-6 text-end">
+                        <small class="text-muted">
+                            <i class="fas fa-eye me-1"></i>Features: 52
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Political Figure Deepfake -->
+        <div class="col-md-6">
+            <div class="gallery-item">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5><i class="fas fa-mask me-2"></i>Political Figure Deepfake</h5>
+                    <span class="fake-badge">FAKE - 88.9%</span>
+                </div>
+                <div class="image-placeholder" style="background: linear-gradient(45deg, #fd79a8, #e84393);">
+                    <i class="fas fa-mask fa-3x"></i>
+                </div>
+                <p class="mt-3">
+                    Deepfake of a prominent political leader. Detected through analysis of 
+                    micro-expressions and lighting inconsistencies across facial regions.
+                </p>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <small class="text-muted">
+                            <i class="fas fa-clock me-1"></i>Processing: 0.24s
+                        </small>
+                    </div>
+                    <div class="col-6 text-end">
+                        <small class="text-muted">
+                            <i class="fas fa-eye me-1"></i>Features: 43
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sports Celebrity -->
+        <div class="col-md-6">
+            <div class="gallery-item">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5><i class="fas fa-trophy me-2"></i>Sports Celebrity</h5>
+                    <span class="real-badge">REAL - 94.7%</span>
+                </div>
+                <div class="image-placeholder" style="background: linear-gradient(45deg, #74b9ff, #0984e3);">
+                    <i class="fas fa-trophy fa-3x"></i>
+                </div>
+                <p class="mt-3">
+                    Authentic photograph of a famous cricket player from match coverage. 
+                    Natural skin texture and consistent lighting patterns confirmed authenticity.
+                </p>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <small class="text-muted">
+                            <i class="fas fa-clock me-1"></i>Processing: 0.15s
+                        </small>
+                    </div>
+                    <div class="col-6 text-end">
+                        <small class="text-muted">
+                            <i class="fas fa-eye me-1"></i>Features: 58
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tech CEO Deepfake -->
+        <div class="col-md-6">
+            <div class="gallery-item">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5><i class="fas fa-laptop me-2"></i>Tech CEO Deepfake</h5>
+                    <span class="fake-badge">FAKE - 93.1%</span>
+                </div>
+                <div class="image-placeholder" style="background: linear-gradient(45deg, #a29bfe, #6c5ce7);">
+                    <i class="fas fa-laptop fa-3x"></i>
+                </div>
+                <p class="mt-3">
+                    Sophisticated deepfake of a technology industry leader. Advanced AI detection 
+                    identified subtle artifacts in facial geometry and expression patterns.
+                </p>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <small class="text-muted">
+                            <i class="fas fa-clock me-1"></i>Processing: 0.19s
+                        </small>
+                    </div>
+                    <div class="col-6 text-end">
+                        <small class="text-muted">
+                            <i class="fas fa-eye me-1"></i>Features: 49
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- News Anchor -->
+        <div class="col-md-6">
+            <div class="gallery-item">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5><i class="fas fa-microphone me-2"></i>News Anchor</h5>
+                    <span class="real-badge">REAL - 97.3%</span>
+                </div>
+                <div class="image-placeholder" style="background: linear-gradient(45deg, #00b894, #00a085);">
+                    <i class="fas fa-microphone fa-3x"></i>
+                </div>
+                <p class="mt-3">
+                    Professional broadcast footage of a news presenter. Excellent image quality 
+                    and natural facial expressions confirm this is authentic media content.
+                </p>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <small class="text-muted">
+                            <i class="fas fa-clock me-1"></i>Processing: 0.13s
+                        </small>
+                    </div>
+                    <div class="col-6 text-end">
+                        <small class="text-muted">
+                            <i class="fas fa-eye me-1"></i>Features: 61
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Detection Statistics -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="content-card">
+                <h4><i class="fas fa-chart-pie me-2"></i>Gallery Statistics</h4>
+                <div class="row mt-4">
+                    <div class="col-md-3 text-center">
+                        <div class="stat-number">6</div>
+                        <h6>Total Examples</h6>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <div class="stat-number">3</div>
+                        <h6>Real Images</h6>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <div class="stat-number">3</div>
+                        <h6>Deepfakes</h6>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <div class="stat-number">92.8%</div>
+                        <h6>Avg Confidence</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Call to Action -->
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <div class="content-card">
+                <h4>Try Our Detection System</h4>
+                <p>Upload your own images to test our advanced deepfake detection capabilities.</p>
+                <a href="/" class="btn btn-primary btn-lg me-3">
+                    <i class="fas fa-upload me-2"></i>Upload Image
+                </a>
+                <a href="/statistics" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-chart-bar me-2"></i>View Statistics
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

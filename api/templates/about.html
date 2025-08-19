@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}About - AI Deepfake Detector{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="content-card">
+                <h1 class="mb-4">
+                    <i class="fas fa-info-circle me-3"></i>About AI Deepfake Detector
+                </h1>
+                
+                <p class="lead">
+                    Advanced machine learning technology to combat the growing threat of deepfake media 
+                    and preserve digital authenticity.
+                </p>
+                
+                <hr class="my-4">
+                
+                <h3 class="mt-5 mb-3"><i class="fas fa-bullseye me-2"></i>Our Mission</h3>
+                <p>
+                    To provide accessible, accurate, and reliable deepfake detection technology that helps 
+                    preserve truth and authenticity in digital media. We believe in empowering individuals 
+                    and organizations with the tools needed to identify manipulated content and maintain 
+                    trust in digital communications.
+                </p>
+                
+                <h3 class="mt-4 mb-3"><i class="fas fa-cogs me-2"></i>Technology</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-brain text-primary me-2"></i>
+                                <strong>Deep Learning Models:</strong> State-of-the-art neural networks 
+                                trained on millions of images
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-search text-success me-2"></i>
+                                <strong>Feature Analysis:</strong> Advanced algorithms for detecting 
+                                subtle manipulation artifacts
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-bolt text-warning me-2"></i>
+                                <strong>Real-time Processing:</strong> Fast analysis with results 
+                                in under 0.5 seconds
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-chart-line text-info me-2"></i>
+                                <strong>High Accuracy:</strong> 92.8% detection accuracy across 
+                                various deepfake techniques
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3 class="mt-4 mb-3"><i class="fas fa-star me-2"></i>Key Features</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h5><i class="fas fa-upload me-2"></i>Image Analysis</h5>
+                            <ul>
+                                <li>Real-time image analysis</li>
+                                <li>Confidence scoring</li>
+                                <li>Detailed feature breakdown</li>
+                                <li>Quality assessment</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h5><i class="fas fa-code me-2"></i>Developer Tools</h5>
+                            <ul>
+                                <li>API access for developers</li>
+                                <li>Batch processing capabilities</li>
+                                <li>Training progress tracking</li>
+                                <li>Comprehensive statistics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="mt-4 mb-3"><i class="fas fa-shield-alt me-2"></i>Detection Capabilities</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="text-center p-3">
+                            <i class="fas fa-eye fa-3x text-primary mb-3"></i>
+                            <h5>Facial Analysis</h5>
+                            <p class="text-muted">
+                                Detects inconsistencies in facial features, expressions, and geometry
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center p-3">
+                            <i class="fas fa-palette fa-3x text-success mb-3"></i>
+                            <h5>Color & Lighting</h5>
+                            <p class="text-muted">
+                                Analyzes color distribution and lighting patterns for authenticity
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center p-3">
+                            <i class="fas fa-texture fa-3x text-warning mb-3"></i>
+                            <h5>Texture Analysis</h5>
+                            <p class="text-muted">
+                                Examines skin texture and surface details for manipulation signs
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="mt-4 mb-3"><i class="fas fa-users me-2"></i>Use Cases</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-newspaper me-2"></i>Media & Journalism</h6>
+                        <p>Verify authenticity of images in news and media content</p>
+                        
+                        <h6><i class="fas fa-gavel me-2"></i>Legal & Forensics</h6>
+                        <p>Support legal proceedings with digital evidence analysis</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-graduation-cap me-2"></i>Education & Research</h6>
+                        <p>Educational tool for understanding deepfake technology</p>
+                        
+                        <h6><i class="fas fa-building me-2"></i>Corporate Security</h6>
+                        <p>Protect organizations from deepfake-based attacks</p>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info mt-4">
+                    <h5><i class="fas fa-lightbulb me-2"></i>Demo Mode Notice</h5>
+                    <p class="mb-0">
+                        This is a demonstration version running in demo mode. All analysis results 
+                        are simulated for educational purposes. The system showcases the potential 
+                        capabilities of advanced deepfake detection technology.
+                    </p>
+                </div>
+                
+                <div class="text-center mt-5">
+                    <h4>Ready to Try Our Detection System?</h4>
+                    <p class="text-muted mb-4">
+                        Upload an image to experience our advanced deepfake detection capabilities
+                    </p>
+                    <a href="/" class="btn btn-primary btn-lg me-3">
+                        <i class="fas fa-upload me-2"></i>Try Detection
+                    </a>
+                    <a href="/gallery" class="btn btn-outline-primary btn-lg me-3">
+                        <i class="fas fa-images me-2"></i>View Gallery
+                    </a>
+                    <a href="/statistics" class="btn btn-outline-secondary btn-lg">
+                        <i class="fas fa-chart-bar me-2"></i>View Statistics
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Technical Specifications -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="content-card">
+                <h4><i class="fas fa-microchip me-2"></i>Technical Specifications</h4>
+                <table class="table table-borderless">
+                    <tr>
+                        <td><strong>Model Architecture:</strong></td>
+                        <td>Deep CNN with ResNet backbone</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Input Resolution:</strong></td>
+                        <td>128x128 to 1024x1024 pixels</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Supported Formats:</strong></td>
+                        <td>JPEG, PNG, WebP</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Processing Time:</strong></td>
+                        <td>0.1 - 0.5 seconds</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Accuracy:</strong></td>
+                        <td>92.8% on test dataset</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="content-card">
+                <h4><i class="fas fa-database me-2"></i>Training Data</h4>
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="stat-number" style="font-size: 1.8rem;">2.5M</div>
+                        <small class="text-muted">Real Images</small>
+                    </div>
+                    <div class="col-6">
+                        <div class="stat-number" style="font-size: 1.8rem;">1.8M</div>
+                        <small class="text-muted">Deepfakes</small>
+                    </div>
+                </div>
+                <hr>
+                <p class="text-muted mb-0">
+                    <small>
+                        Dataset includes diverse demographics, multiple deepfake generation 
+                        techniques, and various image qualities to ensure robust detection.
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

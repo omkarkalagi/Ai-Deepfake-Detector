@@ -4,8 +4,8 @@ import random
 import time
 from datetime import datetime
 
-# Configure Flask to find templates in the parent directory
-app = Flask(__name__, template_folder='../templates', static_folder='../static')
+# Configure Flask to find templates in the api directory
+app = Flask(__name__, template_folder='templates', static_folder='../static')
 
 # Configure Flask for Vercel
 app.config['UPLOAD_FOLDER'] = '/tmp'
