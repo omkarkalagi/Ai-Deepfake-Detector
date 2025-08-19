@@ -1,0 +1,19 @@
+{
+  "SEND_FILE_MAX_AGE_DEFAULT": 31536000,
+  "TEMPLATES_AUTO_RELOAD": false,
+  "EXPLAIN_TEMPLATE_LOADING": false,
+  "PREFERRED_URL_SCHEME": "https",
+  "PERMANENT_SESSION_LIFETIME": 3600,
+  "MAX_CONTENT_LENGTH": 16777216,
+  "UPLOAD_FOLDER": "uploads",
+  "ALLOWED_EXTENSIONS": [
+    "png",
+    "jpg",
+    "jpeg",
+    "gif"
+  ],
+  "CACHE_CONFIG": {
+    "CACHE_TYPE": "simple",
+    "CACHE_DEFAULT_TIMEOUT": 300
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "pages": {
+    "/": {
+      "status": "PASS",
+      "name": "Home Page",
+      "load_time": 2.057,
+      "size": 37207
+    },
+    "/gallery": {
+      "status": "PASS",
+      "name": "Gallery Page",
+      "load_time": 2.063,
+      "size": 49665
+    },
+    "/realtime": {
+      "status": "PASS",
+      "name": "Real-time Detection",
+      "load_time": 2.055,
+      "size": 60130
+    },
+    "/batch": {
+      "status": "PASS",
+      "name": "Batch Processing",
+      "load_time": 2.064,
+      "size": 44561
+    },
+    "/api": {
+      "status": "PASS",
+      "name": "API Explorer",
+      "load_time": 2.05,
+      "size": 49749
+    },
+    "/about": {
+      "status": "PASS",
+      "name": "About Page",
+      "load_time": 2.048,
+      "size": 35845
+    },
+    "/documentation": {
+      "status": "PASS",
+      "name": "Documentation",
+      "load_time": 2.048,
+      "size": 38819
+    },
+    "/training": {
+      "status": "PASS",
+      "name": "Training Page",
+      "load_time": 2.065,
+      "size": 43337
+    },
+    "/statistics": {
+      "status": "PASS",
+      "name": "Statistics",
+      "load_time": 2.056,
+      "size": 39476
+    },
+    "/contact": {
+      "status": "PASS",
+      "name": "Contact Page",
+      "load_time": 2.045,
+      "size": 38311
+    }
+  },
+  "api_endpoints": {
+    "/detect": {
+      "status": "PASS"
+    }
+  },
+  "functionality": {
+    "theme_system": {
+      "status": "PASS"
+    },
+    "mobile_responsive": {
+      "status": "PASS"
+    }
+  },
+  "performance": {
+    "home_load_time": 2.051,
+    "home_size_kb": 36.33
+  },
+  "errors": []
+}

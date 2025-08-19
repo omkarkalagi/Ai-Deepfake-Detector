@@ -1,0 +1,1136 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Deepfake Detector - Advanced deepfake detection using machine learning">
+    <!-- Critical Resource Hints for Maximum Speed -->
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="{{ url_for('static', filename='theme-manager.js') }}" as="script">
+    <link rel="preload" href="{{ url_for('static', filename='advanced-loader.js') }}" as="script">
+    <link rel="preload" href="{{ url_for('static', filename='interactive-enhancements.js') }}" as="script">
+    <link rel="preload" href="{{ url_for('static', filename='chatbot.js') }}" as="script">
+<!-- Advanced Resource Preloading -->
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="{{ url_for('static', filename='theme-manager.js') }}" as="script">
+<link rel="preload" href="{{ url_for('static', filename='advanced-loader.js') }}" as="script">
+<link rel="preload" href="{{ url_for('static', filename='interactive-enhancements.js') }}" as="script"><!-- Critical Resource Hints --><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Documentation - AI Deepfake Detector</title>
+<link rel="icon" href="{{ url_for('static', filename='k.ico') }}" type="image/x-icon"><!-- Bootstrap CSS --><!-- Font Awesome --><!-- Prism.js for code highlighting -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<style>
+        /* Performance Optimizations */
+        * {
+            box-sizing: border-box;
+        }
+        .animate__animated,
+        .team-member,
+        .card,
+        .btn,
+        .social-link {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+        img {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+        .navbar {
+            will-change: background-color;
+        }
+        /* Reduce paint complexity */
+        .container,
+        .container-fluid {
+            contain: layout style paint;
+        }
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        body {
+            background: #f8f9fa;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin:100px auto 20px auto!important;
+            padding: 40px;
+            max-width: 1200px;
+        }
+        .doc-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--primary-color);
+        }
+        .toc {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 20px;
+        }
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .toc ul ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        .toc a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 5px 0;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .toc a:hover {
+            color: var(--secondary-color);
+            padding-left: 10px;
+        }
+        .code-block {
+            background: #2d3748;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .step-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+        .step-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .alert-custom {
+            border-radius: 15px;
+            border: none;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .alert-info-custom {
+            background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+            color: #0c5460;
+        }
+        .alert-warning-custom {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            color: #856404;
+        }
+        .alert-success-custom {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+        }
+        /* Enhanced Navigation Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            padding: 0.8rem 0;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #2c3e50 !important;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand:hover {
+            color: #3498db !important;
+            transform: scale(1.05);
+        }
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            color: #2c3e50 !important;
+            margin: 0 5px;
+            padding: 8px 16px !important;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #3498db !important;
+            background: rgba(52, 152, 219, 0.1);
+            transform: translateY(-2px);
+        }
+        .navbar-nav .nav-link.active {
+            color: #e74c3c !important;
+            background: rgba(231, 76, 60, 0.1);
+            font-weight: 600;
+        }
+        .navbar-nav .nav-link i {
+            margin-right: 6px;
+            transition: all 0.3s ease;
+        }
+        .navbar-nav .nav-link:hover i {
+            transform: scale(1.2);
+        }
+        .navbar-toggler {
+            border: none;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        .navbar-toggler:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+        /* Theme Toggle Enhanced */
+        .theme-toggle {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+        /* Dark theme navigation */
+        .dark-theme .navbar {
+            background: rgba(44, 62, 80, 0.95) !important;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+        .dark-theme .navbar-brand {
+            color: #ecf0f1 !important;
+        }
+        .dark-theme .navbar-brand:hover {
+            color: #3498db !important;
+        }
+        .dark-theme .navbar-nav .nav-link {
+            color: #ecf0f1 !important;
+        }
+        .dark-theme .navbar-nav .nav-link:hover {
+            color: #3498db !important;
+            background: rgba(52, 152, 219, 0.2);
+        }
+        .dark-theme .navbar-nav .nav-link.active {
+            color: #e74c3c !important;
+            background: rgba(231, 76, 60, 0.2);
+        }
+        .dark-theme .theme-toggle {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        }
+        .dark-theme .theme-toggle:hover {
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+        }
+        /* Mobile Navigation Enhancements */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: rgba(255, 255, 255, 0.98);
+                border-radius: 15px;
+                margin-top: 15px;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(10px);
+            }
+            .dark-theme .navbar-collapse {
+                background: rgba(44, 62, 80, 0.98);
+            }
+            .navbar-nav {
+                text-align: center;
+            }
+            .navbar-nav .nav-item {
+                margin: 5px 0;
+            }
+            .navbar-nav .nav-link {
+                padding: 12px 20px !important;
+                margin: 2px 0;
+                border-radius: 12px;
+                font-size: 1.1rem;
+            }
+            .theme-toggle {
+                margin: 15px auto 0;
+                position: relative;
+            }
+        }
+        /* Smooth scroll for navigation */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Navigation animation on load */
+        .navbar {
+            animation: slideDown 0.5s ease-out;
+        }
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        /* Stylish Footer Styles */
+        .stylish-footer {
+            background: linear-gradient(135deg, #2c3e50, #34495e, #2c3e50);
+            color: #ecf0f1;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .stylish-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #f1c40f, #27ae60, #3498db, #9b59b6, #e74c3c);
+            background-size: 200% 100%;
+            animation: rainbow 3s linear infinite;
+        }
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .footer-content {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 0 2rem;
+        }
+        .footer-heart {
+            font-size: 3rem;
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .handwriting-text {
+            font-family: 'Dancing Script', 'Brush Script MT', cursive;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #ecf0f1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .love-symbol {
+            color: #e74c3c;
+            font-size: 2.2rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .creator-name {
+            color: #f39c12;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .company-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #3498db;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .company-name {
+            background: linear-gradient(45deg, #3498db, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        .footer-tagline {
+            font-style: italic;
+            color: #bdc3c7;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .footer-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+        .decoration-line {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3498db, transparent);
+        }
+        .decoration-dots {
+            margin: 0 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .decoration-dots span {
+            width: 8px;
+            height: 8px;
+            background: #3498db;
+            border-radius: 50%;
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+        .decoration-dots span:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        .decoration-dots span:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        @keyframes dotPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 2rem;
+        }
+        .footer-section h6 {
+            color: #f39c12;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        .footer-section ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .footer-section ul li a:hover {
+            color: #3498db;
+            padding-left: 10px;
+        }
+        .footer-section ul li a::before {
+            content: '→';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .footer-section ul li a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        .footer-copyright {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .handwriting-text {
+                font-size: 1.5rem;
+            }
+            .company-text {
+                font-size: 1.2rem;
+            }
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1rem;
+            }
+            .decoration-line {
+                width: 50px;
+            }
+        }
+        /* Dark theme adjustments */
+        .dark-theme .stylish-footer {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #1a1a1a);
+        }
+        /* Respect user's motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        /* Optimize animations for performance */
+        .animate__animated {
+            animation-fill-mode: both;
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+        /* GPU acceleration for smooth animations */
+        .card,
+        .btn,
+        .team-member,
+        .social-link {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+        /* Enhanced Dark Theme Styles */
+        .dark-theme {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+            color: #ecf0f1 !important;
+            min-height: 100vh;
+        }
+        .dark-theme body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+            color: #ecf0f1 !important;
+        }
+        /* Navigation Dark Theme */
+        .dark-theme .navbar {
+            background: rgba(26, 26, 46, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dark-theme .navbar-brand {
+            color: #ecf0f1 !important;
+        }
+        .dark-theme .navbar-nav .nav-link {
+            color: #bdc3c7 !important;
+        }
+        .dark-theme .navbar-nav .nav-link:hover {
+            color: #3498db !important;
+            background: rgba(52, 152, 219, 0.1);
+        }
+        .dark-theme .navbar-nav .nav-link.active {
+            color: #e74c3c !important;
+            background: rgba(231, 76, 60, 0.1);
+        }
+        /* Cards and Containers */
+        .dark-theme .card,
+        .dark-theme .main-container,
+        .dark-theme .detection-container,
+        .dark-theme .upload-area {
+            background: rgba(44, 62, 80, 0.9) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ecf0f1 !important;
+        }
+        .dark-theme .card-header {
+            background: rgba(52, 73, 94, 0.9) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ecf0f1 !important;
+        }
+        /* Buttons */
+        .dark-theme .btn-primary {
+            background: linear-gradient(135deg, #3498db, #2980b9) !important;
+            border: none;
+        }
+        .dark-theme .btn-secondary {
+            background: rgba(52, 73, 94, 0.9) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ecf0f1 !important;
+        }
+        .dark-theme .btn-outline-primary {
+            border-color: #3498db;
+            color: #3498db;
+        }
+        .dark-theme .btn-outline-primary:hover {
+            background: #3498db;
+            color: white;
+        }
+        /* Forms */
+        .dark-theme .form-control {
+            background: rgba(52, 73, 94, 0.8) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ecf0f1 !important;
+        }
+        .dark-theme .form-control:focus {
+            background: rgba(52, 73, 94, 0.9) !important;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            color: #ecf0f1 !important;
+        }
+        .dark-theme .form-control::placeholder {
+            color: #95a5a6 !important;
+        }
+        .dark-theme .form-label {
+            color: #ecf0f1 !important;
+        }
+        /* Tables */
+        .dark-theme .table {
+            color: #ecf0f1 !important;
+        }
+        .dark-theme .table-dark {
+            background: rgba(44, 62, 80, 0.9) !important;
+        }
+        .dark-theme .table th,
+        .dark-theme .table td {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        /* Alerts */
+        .dark-theme .alert-success {
+            background: rgba(39, 174, 96, 0.2) !important;
+            border-color: rgba(39, 174, 96, 0.3);
+            color: #2ecc71 !important;
+        }
+        .dark-theme .alert-danger {
+            background: rgba(231, 76, 60, 0.2) !important;
+            border-color: rgba(231, 76, 60, 0.3);
+            color: #e74c3c !important;
+        }
+        .dark-theme .alert-info {
+            background: rgba(52, 152, 219, 0.2) !important;
+            border-color: rgba(52, 152, 219, 0.3);
+            color: #3498db !important;
+        }
+        /* Statistics Cards */
+        .dark-theme .stat-card {
+            background: rgba(44, 62, 80, 0.9) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ecf0f1 !important;
+        }
+        .dark-theme .stat-card h3 {
+            color: #3498db !important;
+        }
+        /* Gallery Items */
+        .dark-theme .gallery-item {
+            background: rgba(44, 62, 80, 0.9) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dark-theme .gallery-info {
+            background: rgba(52, 73, 94, 0.9) !important;
+            color: #ecf0f1 !important;
+        }
+        /* Team Members */
+        .dark-theme .team-member {
+            background: rgba(44, 62, 80, 0.9) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ecf0f1 !important;
+        }
+        /* Contact Methods */
+        .dark-theme .contact-method {
+            background: rgba(44, 62, 80, 0.9) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dark-theme .lead-contact-section {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(155, 89, 182, 0.2)) !important;
+            border-color: rgba(52, 152, 219, 0.3);
+        }
+        /* Social Media Section */
+        .dark-theme .social-media-section {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(192, 57, 43, 0.2)) !important;
+        }
+        /* Contact Form */
+        .dark-theme .contact-form {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.8), rgba(52, 73, 94, 0.8)) !important;
+        }
+        /* Footer */
+        .dark-theme .stylish-footer {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460) !important;
+        }
+        .dark-theme .footer-links {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Text Colors */
+        .dark-theme h1, .dark-theme h2, .dark-theme h3,
+        .dark-theme h4, .dark-theme h5, .dark-theme h6 {
+            color: #ecf0f1 !important;
+        }
+        .dark-theme p, .dark-theme span, .dark-theme div {
+            color: #bdc3c7 !important;
+        }
+        .dark-theme .text-muted {
+            color: #95a5a6 !important;
+        }
+        /* Upload Area */
+        .dark-theme .upload-area {
+            background: rgba(44, 62, 80, 0.9) !important;
+            border: 2px dashed rgba(52, 152, 219, 0.5);
+        }
+        .dark-theme .upload-area:hover {
+            border-color: #3498db;
+            background: rgba(52, 73, 94, 0.9) !important;
+        }
+        /* Progress Bars */
+        .dark-theme .progress {
+            background: rgba(52, 73, 94, 0.9) !important;
+        }
+        .dark-theme .progress-bar {
+            background: linear-gradient(90deg, #3498db, #2980b9) !important;
+        }
+        /* Modals */
+        .dark-theme .modal-content {
+            background: rgba(44, 62, 80, 0.95) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ecf0f1 !important;
+        }
+        .dark-theme .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dark-theme .modal-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Dropdown */
+        .dark-theme .dropdown-menu {
+            background: rgba(44, 62, 80, 0.95) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dark-theme .dropdown-item {
+            color: #bdc3c7 !important;
+        }
+        .dark-theme .dropdown-item:hover {
+            background: rgba(52, 152, 219, 0.2) !important;
+            color: #ecf0f1 !important;
+        }
+        /* Scrollbar */
+        .dark-theme ::-webkit-scrollbar {
+            width: 8px;
+        }
+        .dark-theme ::-webkit-scrollbar-track {
+            background: rgba(44, 62, 80, 0.5);
+        }
+        .dark-theme ::-webkit-scrollbar-thumb {
+            background: rgba(52, 152, 219, 0.7);
+            border-radius: 4px;
+        }
+        .dark-theme ::-webkit-scrollbar-thumb:hover {
+            background: #3498db;
+        }
+        /* Ensure proper contrast */
+        .dark-theme .bg-light {
+            background: rgba(44, 62, 80, 0.9) !important;
+        }
+        .dark-theme .bg-white {
+            background: rgba(44, 62, 80, 0.9) !important;
+        }
+        .dark-theme .border {
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        /* Animation compatibility */
+        .dark-theme .animate__animated {
+            animation-fill-mode: both;
+        }
+        
+        /* Skip link accessibility - hidden by default, visible on focus */
+        .skip-link {
+            position: absolute !important;
+            top: -40px !important;
+            left: 6px !important;
+            background: #000 !important;
+            color: #fff !important;
+            padding: 8px !important;
+            text-decoration: none !important;
+            border-radius: 4px !important;
+            z-index: 10000 !important;
+            transition: top 0.3s ease !important;
+        }
+        .skip-link:focus {
+            top: 6px !important;
+        }
+        </style>
+<script src="{{ url_for('static', filename='advanced-loader.js') }}" defer></script>
+<script src="{{ url_for('static', filename='interactive-enhancements.js') }}" defer></script>
+<!-- Preload Critical Scripts -->
+<link rel="preload" href="{{ url_for('static', filename='theme-manager.js') }}" as="script">
+<link rel="preload" href="{{ url_for('static', filename='advanced-loader.js') }}" as="script">
+<link rel="preload" href="{{ url_for('static', filename='interactive-enhancements.js') }}" as="script">
+<style>
+        /* Critical CSS - Above the fold */
+        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        .navbar { position: fixed; top: 0; width: 100%; z-index: 1000; }
+        .main-container{margin-top:100px!important; }
+        .loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; }
+        /* CSS Optimization */
+        * {
+            box-sizing: border-box;
+        }
+        /* Reduce paint complexity */
+        .container,
+        .container-fluid,
+        .card,
+        .navbar {
+            contain: layout style paint;
+        }
+        /* GPU acceleration for animations */
+        .animate__animated,
+        .btn,
+        .card,
+        .team-member,
+        .social-link,
+        .gallery-item {
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        /* Optimize font rendering */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+        /* Reduce layout thrashing */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* Optimize scrolling */
+        * {
+            scroll-behavior: smooth;
+        }
+        /* Reduce reflow */
+        .navbar-nav {
+            transform: translateZ(0);
+        }
+        /* Critical path optimization */
+        .above-fold {
+            contain: layout style paint;
+        }
+        
+        /* Skip link accessibility - hidden by default, visible on focus */
+        .skip-link {
+            position: absolute !important;
+            top: -40px !important;
+            left: 6px !important;
+            background: #000 !important;
+            color: #fff !important;
+            padding: 8px !important;
+            text-decoration: none !important;
+            border-radius: 4px !important;
+            z-index: 10000 !important;
+            transition: top 0.3s ease !important;
+        }
+        .skip-link:focus {
+            top: 6px !important;
+        }
+        </style>
+<style>
+/* Critical Above-the-fold CSS */
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);min-height:100vh}
+.navbar{position:fixed;top:0;width:100%;z-index:1000;background:rgba(255,255,255,0.95)!important;backdrop-filter:blur(10px);box-shadow:0 2px 20px rgba(0,0,0,0.1)}
+.main-container{margin-top:100px!important;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.1);margin:100px auto 20px auto!important;padding:40px;max-width:1200px}
+.loading-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:9999;display:flex;align-items:center;justify-content:center}
+.spinner{width:40px;height:40px;border:4px solid #f3f3f3;border-top:4px solid #3498db;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+
+        /* Skip link accessibility - hidden by default, visible on focus */
+        .skip-link {
+            position: absolute !important;
+            top: -40px !important;
+            left: 6px !important;
+            background: #000 !important;
+            color: #fff !important;
+            padding: 8px !important;
+            text-decoration: none !important;
+            border-radius: 4px !important;
+            z-index: 10000 !important;
+            transition: top 0.3s ease !important;
+        }
+        .skip-link:focus {
+            top: 6px !important;
+        }
+        </style>
+</head><body>
+    <a href="#main-content" class="skip-link">Skip to main content</a><!-- Navigation --><nav role="navigation" class="navbar navbar-expand-lg navbar-light"><div class="container">
+    <div id="main-content"><a class="navbar-brand" href="{{ url_for('home') }}" title="Link"><!-- Preload Critical CSS -->
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"></noscript>
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript>
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"></noscript><i class="fas fa-brain me-2"></i>AI Deepfake Detector
+            </a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNav"><ul class="navbar-nav ms-auto"><li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}" title="Link"><i class="fas fa-home me-1"></i>Home
+                        </a></li><li class="nav-item"><a class="nav-link" href="{{ url_for('gallery') }}" title="Link"><i class="fas fa-images me-1"></i>Gallery
+                        </a></li><li class="nav-item"><a class="nav-link" href="{{ url_for('realtime') }}" title="Link"><i class="fas fa-video me-1"></i>Real-time
+                        </a></li><li class="nav-item"><a class="nav-link" href="{{ url_for('batch') }}" title="Link"><i class="fas fa-layer-group me-1"></i>Batch
+                        </a></li><li class="nav-item"><a class="nav-link" href="{{ url_for('api') }}" title="Link"><i class="fas fa-code me-1"></i>API
+                        </a></li><li class="nav-item"><a class="nav-link" href="{{ url_for('training') }}" title="Link"><i class="fas fa-cogs me-1"></i>Training
+                        </a></li><li class="nav-item"><a class="nav-link" href="{{ url_for('statistics') }}" title="Link"><i class="fas fa-chart-bar me-1"></i>Statistics
+                        </a></li><li class="nav-item"><a class="nav-link" href="{{ url_for('documentation') }}" title="Link"><i class="fas fa-book me-1"></i>Docs
+                        </a></li><li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}" title="Link"><i class="fas fa-info-circle me-1"></i>About
+                        </a></li><li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}" title="Link"><i class="fas fa-envelope me-1"></i>Contact
+                        </a></li></ul><button class="theme-toggle" id="themeToggle" title="Toggle Theme" aria-label="moon"><i class="fas fa-moon"></i></button></div></div></nav><div class="container-fluid"><div class="main-container"><!-- Header --><div class="text-center mb-5"><h1 class="display-4 mb-3" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"><i class="fas fa-book me-3"></i>Documentation
+                </h1><p class="lead text-muted">Complete guide to using the AI Deepfake Detector</p></div><div class="row"><!-- Table of Contents --><div class="col-lg-3"><div class="toc"><h5><i class="fas fa-list me-2"></i>Table of Contents</h5><ul><li><a href="#getting-started" title="Link">Getting Started</a></li><li><a href="#quick-start" title="Link">Quick Start Guide</a></li><li><a href="#features" title="Link">Features Overview</a></li><li><a href="#usage" title="Link">How to Use</a></li><li><a href="#api" title="Link">API Reference</a></li><li><a href="#troubleshooting" title="Link">Troubleshooting</a></li><li><a href="#faq" title="Link">FAQ</a></li></ul></div></div><!-- Documentation Content --><div class="col-lg-9"><!-- Getting Started --><div id="getting-started" class="doc-section"><h2><i class="fas fa-rocket me-3"></i>Getting Started</h2><p>Welcome to the AI Deepfake Detector! This powerful system uses advanced neural networks to detect deepfake and manipulated images with high accuracy.</p><div class="alert alert-info-custom"><i class="fas fa-info-circle me-2"></i><strong>System Requirements:</strong> Python 3.8+, 4GB RAM, Modern web browser
+                        </div><h4>Installation</h4><div class="step-card"><div class="d-flex align-items-center"><span class="step-number">1</span><div><strong>Run the Project</strong><p class="mb-0">Simply run the main project file:</p></div></div></div><div class="code-block"><pre><code class="language-bash">python project.py</code></pre></div><p>That's it! The system will automatically:</p><ul><li>Set up the virtual environment</li><li>Install all dependencies</li><li>Create necessary directories</li><li>Start the web application</li><li>Open your browser to the interface</li></ul></div><!-- Quick Start --><div id="quick-start" class="doc-section"><h2><i class="fas fa-play me-3"></i>Quick Start Guide</h2><div class="step-card"><div class="d-flex align-items-center"><span class="step-number">1</span><div><strong>Upload an Image</strong><p class="mb-0">Click "Choose Image File" and select a PNG, JPG, or JPEG image (max 10MB)</p></div></div></div><div class="step-card"><div class="d-flex align-items-center"><span class="step-number">2</span><div><strong>Analyze</strong><p class="mb-0">Click "Analyze Image" to start the AI detection process</p></div></div></div><div class="step-card"><div class="d-flex align-items-center"><span class="step-number">3</span><div><strong>View Results</strong><p class="mb-0">Get comprehensive analysis including confidence scores, editing detection, and feature analysis</p></div></div></div></div><!-- Features --><div id="features" class="doc-section"><h2><i class="fas fa-star me-3"></i>Features Overview</h2><div class="feature-grid"><div class="feature-item"><div class="feature-icon"><i class="fas fa-brain"></i></div><h5>AI Detection</h5><p>Advanced CNN with {{ accuracy }}% accuracy</p></div><div class="feature-item"><div class="feature-icon"><i class="fas fa-edit"></i></div><h5>Edit Detection</h5><p>Identifies image manipulation and editing</p></div><div class="feature-item"><div class="feature-icon"><i class="fas fa-chart-pie"></i></div><h5>Visual Analytics</h5><p>Interactive charts and detailed metrics</p></div><div class="feature-item"><div class="feature-icon"><i class="fas fa-bolt"></i></div><h5>Real-time</h5><p>Fast processing in under 1 second</p></div></div></div><!-- Usage --><div id="usage" class="doc-section"><h2><i class="fas fa-user me-3"></i>How to Use</h2><h4>Supported File Formats</h4><ul><li><strong>PNG</strong> - Portable Network Graphics</li><li><strong>JPG/JPEG</strong> - Joint Photographic Experts Group</li><li><strong>Maximum file size:</strong> 10MB</li></ul><h4>Understanding Results</h4><div class="alert alert-success-custom"><strong>Real Image:</strong> The AI determined the image is authentic with high confidence
+                        </div><div class="alert alert-warning-custom"><strong>Fake Image:</strong> The AI detected signs of artificial generation or deepfake manipulation
+                        </div><h4>Confidence Scores</h4><ul><li><strong>90-100%:</strong> Very high confidence</li><li><strong>70-89%:</strong> High confidence</li><li><strong>50-69%:</strong> Moderate confidence</li><li><strong>Below 50%:</strong> Low confidence - manual review recommended</li></ul><h4>Editing Detection</h4><p>The system also detects if an image has been edited or manipulated, even if it's not a deepfake:</p><ul><li><strong>Compression artifacts</strong> - JPEG compression inconsistencies</li><li><strong>Noise patterns</strong> - Unnatural noise distribution</li><li><strong>Edge inconsistencies</strong> - Irregular edge patterns</li></ul></div><!-- API Reference --><div id="api" class="doc-section"><h2><i class="fas fa-code me-3"></i>API Reference</h2><h4>Available Endpoints</h4><h5>GET /api/model_stats</h5><p>Returns current model performance statistics</p><div class="code-block"><pre><code class="language-json">{
+  "accuracy": 92.7,
+  "precision": 94.2,
+  "recall": 91.3,
+  "version": "v3.0"
+}</code></pre></div><h5>GET /api/analysis_history</h5><p>Returns recent analysis history</p><h5>GET /api/system_health</h5><p>Returns system health status</p></div><!-- Troubleshooting --><div id="troubleshooting" class="doc-section"><h2><i class="fas fa-wrench me-3"></i>Troubleshooting</h2><h4>Common Issues</h4><div class="alert alert-warning-custom"><strong>File Upload Error:</strong> Ensure your image is under 10MB and in PNG/JPG format
+                        </div><div class="alert alert-warning-custom"><strong>Slow Processing:</strong> Large images may take longer to process. Consider resizing to 1024x1024 or smaller
+                        </div><div class="alert alert-warning-custom"><strong>Unexpected Results:</strong> Very low quality or heavily compressed images may produce less accurate results
+                        </div><h4>Performance Tips</h4><ul><li>Use high-quality images for best results</li><li>Avoid heavily compressed or low-resolution images</li><li>Images with clear faces work best</li><li>Good lighting improves detection accuracy</li></ul></div><!-- FAQ --><div id="faq" class="doc-section"><h2><i class="fas fa-question-circle me-3"></i>Frequently Asked Questions</h2><h5>Q: How accurate is the detection?</h5><p>A: Our system achieves {{ accuracy }}% accuracy on standard benchmarks, with {{ precision }}% precision and {{ recall }}% recall.</p><h5>Q: What types of deepfakes can it detect?</h5><p>A: The system can detect face swaps, facial reenactment, speech-driven animation, and other AI-generated content.</p><h5>Q: Is my data stored or shared?</h5><p>A: No, all processing is done locally. Images are deleted immediately after analysis.</p><h5>Q: Can it detect all types of image manipulation?</h5><p>A: While highly effective for deepfakes, it also detects many forms of image editing and manipulation.</p><h5>Q: What should I do if I get unexpected results?</h5><p>A: Consider the image quality, lighting, and resolution. Very low-quality images may produce less reliable results.</p></div></div></div></div></div><!-- Bootstrap JS --><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer defer></script>
+<!-- Theme Manager --><script src="{{ url_for('static', filename='theme-manager.js') }}" defer defer></script>
+<!-- Prism.js for code highlighting --><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" async></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" async></script>
+<!-- Stylish Footer -->    </div>
+    <footer class="stylish-footer"><div class="footer-content"><div class="footer-heart"><i class="fas fa-heart"></i></div><div class="footer-text"><p class="handwriting-text">
+                    Made with <span class="love-symbol">♥</span> by
+                    <span class="creator-name">Omkar Kalagi</span></p><p class="company-text"><span class="company-name">Kalagi Group of Companies</span></p><p class="footer-tagline">
+                    "Innovating the Future with AI Excellence"
+                </p></div><div class="footer-decoration"><div class="decoration-line"></div><div class="decoration-dots"><span></span><span></span><span></span></div><div class="decoration-line"></div></div></div><!-- Footer Links --><div class="footer-links"><div class="footer-section"><h6>AI Solutions</h6><ul><li><a href="{{ url_for('home') }}" title="Link">Deepfake Detection</a></li><li><a href="{{ url_for('realtime') }}" title="Link">Real-time Analysis</a></li><li><a href="{{ url_for('batch') }}" title="Link">Batch Processing</a></li><li><a href="{{ url_for('api') }}" title="Link">API Services</a></li></ul></div><div class="footer-section"><h6>Resources</h6><ul><li><a href="{{ url_for('documentation') }}" title="Link">Documentation</a></li><li><a href="{{ url_for('training') }}" title="Link">Model Training</a></li><li><a href="{{ url_for('statistics') }}" title="Link">Performance Stats</a></li><li><a href="{{ url_for('gallery') }}" title="Link">Image Gallery</a></li></ul></div><div class="footer-section"><h6>Company</h6><ul><li><a href="{{ url_for('about') }}" title="Link">About Us</a></li><li><a href="{{ url_for('contact') }}" title="Link">Contact Team</a></li><li><a href="tel:+917624828106" title="Link">Call: +91 7624828106</a></li><li><a href="mailto:omkar.digambar@kalagigroup.com" title="Link">Email Support</a></li></ul></div><div class="footer-section"><h6>Connect</h6><div class="social-icons"><a href="#" title="Link" class="social-icon"><i class="fab fa-github"></i></a><a href="#" title="Link" class="social-icon"><i class="fab fa-linkedin"></i></a><a href="#" title="Link" class="social-icon"><i class="fab fa-twitter"></i></a><a href="#" title="Link" class="social-icon"><i class="fab fa-instagram"></i></a></div><p class="footer-copyright">
+                    © 2024 Kalagi Group of Companies<br>
+                    All Rights Reserved
+                </p></div></div></footer><!-- Performance Monitoring --><script>
+        // Performance monitoring
+        window.addEventListener('load', function() {
+            if ('performance' in window) {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+                const domContentLoaded = perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart;
+                console.log(`Page Load Time: ${loadTime}ms`);
+                console.log(`DOM Content Loaded: ${domContentLoaded}ms`);
+                // Send to analytics if needed
+                if (loadTime > 3000) {
+                    console.warn('Page load time is slow:', loadTime + 'ms');
+                }
+            }
+        });
+        // Preload next likely pages
+        const preloadPages = ['/gallery', '/about', '/contact'];
+        preloadPages.forEach(page => {
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = page;
+            document.head.appendChild(link);
+        });
+    </script><!-- Service Worker Registration --><script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/static/sw.js')
+                    .then(function(registration) {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(function(registrationError) {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script><!-- AI Chatbot --><script src="{{ url_for('static', filename='chatbot.js') }}" defer></script>
+    <!-- Performance Monitoring Script -->
+    <script>
+        // Loading screen
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingScreen = document.createElement('div');
+            loadingScreen.className = 'loading-screen';
+            loadingScreen.innerHTML = '<div class="spinner"></div>';
+            document.body.appendChild(loadingScreen);
+
+            window.addEventListener('load', function() {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => loadingScreen.remove(), 300);
+            });
+        });
+
+        // Performance metrics
+        window.addEventListener('load', function() {
+            if ('performance' in window) {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+                console.log(`⚡ Page Load Time: ${loadTime}ms`);
+
+                // Preload next likely pages
+                const preloadPages = ['/gallery', '/about', '/contact', '/api'];
+                preloadPages.forEach(page => {
+                    const link = document.createElement('link');
+                    link.rel = 'prefetch';
+                    link.href = page;
+                    document.head.appendChild(link);
+                });
+            }
+        });
+    </script>
+
+    <!-- Ultimate Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/static/sw.js')
+                    .then(registration => {
+                        console.log('🚀 SW registered successfully');
+
+                        // Update available
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    console.log('🔄 New version available');
+                                }
+                            });
+                        });
+                    })
+                    .catch(error => console.log('SW registration failed:', error));
+            });
+        }
+    </script>
+
+    <!-- JavaScript Error Handling -->
+    <script>
+        // Global error handler
+        window.addEventListener('error', function(e) {
+            console.warn('JavaScript error caught:', e.message);
+        });
+
+        // Unhandled promise rejection handler
+        window.addEventListener('unhandledrejection', function(e) {
+            console.warn('Unhandled promise rejection:', e.reason);
+            e.preventDefault();
+        });
+
+        // Safe DOM ready
+        function safeReady(fn) {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', fn);
+            } else {
+                fn();
+            }
+        }
+
+        // Safe element selection
+        function safeSelect(selector) {
+            try {
+                return document.querySelector(selector);
+            } catch (e) {
+                console.warn('Invalid selector:', selector);
+                return null;
+            }
+        }
+    </script>
+<script>
+        // Image loading error handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    console.warn('Failed to load image:', this.src);
+                    
+                    // Create placeholder
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'image-placeholder';
+                    placeholder.style.cssText = `
+                        width: ${this.width || 300}px;
+                        height: ${this.height || 200}px;
+                        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: 2px dashed #dee2e6;
+                        border-radius: 8px;
+                        color: #6c757d;
+                        font-size: 14px;
+                        text-align: center;
+                        flex-direction: column;
+                    `;
+                    placeholder.innerHTML = `
+                        <i class="fas fa-image" style="font-size: 24px; margin-bottom: 8px;"></i>
+                        <span>Image not available</span>
+                    `;
+                    
+                    // Replace image with placeholder
+                    this.parentNode.replaceChild(placeholder, this);
+                });
+                
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                    this.style.transition = 'opacity 0.3s ease';
+                });
+            });
+        });</script>
+</body></html>

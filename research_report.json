@@ -1,0 +1,280 @@
+{
+  "generated_at": "2025-08-19T17:30:16.638076",
+  "summary": {
+    "total_papers": 20,
+    "total_repositories": 15,
+    "total_datasets": 5,
+    "total_techniques": 8,
+    "total_benchmarks": 4
+  },
+  "top_techniques": [
+    {
+      "name": "Ensemble Methods",
+      "description": "Combines multiple models for improved accuracy",
+      "accuracy": "97.2%",
+      "paper_source": "Ensemble learning papers",
+      "implementation_complexity": "High",
+      "computational_cost": "High"
+    },
+    {
+      "name": "Vision Transformer (ViT)",
+      "description": "Transformer architecture adapted for image classification",
+      "accuracy": "96.1%",
+      "paper_source": "Recent ViT papers",
+      "implementation_complexity": "High",
+      "computational_cost": "High"
+    },
+    {
+      "name": "Multi-scale Feature Fusion",
+      "description": "Combines features from multiple scales for better detection",
+      "accuracy": "95.3%",
+      "paper_source": "Feature fusion papers",
+      "implementation_complexity": "Medium",
+      "computational_cost": "Medium"
+    },
+    {
+      "name": "Attention-based CNN",
+      "description": "Uses attention mechanisms to focus on manipulated regions",
+      "accuracy": "94.2%",
+      "paper_source": "Multiple papers 2023-2024",
+      "implementation_complexity": "Medium",
+      "computational_cost": "Medium"
+    },
+    {
+      "name": "EfficientNet with Focal Loss",
+      "description": "EfficientNet backbone with focal loss for imbalanced data",
+      "accuracy": "93.8%",
+      "paper_source": "EfficientNet deepfake papers",
+      "implementation_complexity": "Medium",
+      "computational_cost": "Medium"
+    }
+  ],
+  "recommended_datasets": [
+    {
+      "title": "140K Real and Fake Faces",
+      "url": "https://www.kaggle.com/datasets/xhlulu/140k-real-and-fake-faces",
+      "size": "2.8GB",
+      "samples": "140,000+ images",
+      "description": "Large-scale dataset for deepfake detection",
+      "downloads": 25000,
+      "relevance_score": 0.98
+    },
+    {
+      "title": "FaceForensics++ Dataset",
+      "url": "https://www.kaggle.com/datasets/sorokin/faceforensics",
+      "size": "5.2GB",
+      "samples": "100,000+ videos",
+      "description": "Video-based deepfake detection dataset",
+      "downloads": 12000,
+      "relevance_score": 0.96
+    },
+    {
+      "title": "Deepfake and Real Images Dataset",
+      "url": "https://www.kaggle.com/datasets/manjilkarki/deepfake-and-real-images",
+      "size": "500MB",
+      "samples": "2000+ images",
+      "description": "Collection of real and deepfake images for training",
+      "downloads": 15000,
+      "relevance_score": 0.95
+    }
+  ],
+  "latest_papers": [
+    {
+      "title": "From Prediction to Explanation: Multimodal, Explainable, and Interactive Deepfake Detection Framework for Non-Expert Users",
+      "authors": [
+        "Shahroz Tariq",
+        "Simon S. Woo",
+        "Priyanka Singh",
+        "Irena Irmalasari",
+        "Saakshi Gupta",
+        "Dev Gupta"
+      ],
+      "abstract": "The proliferation of deepfake technologies poses urgent challenges and\nserious risks to digital integrity, particularly within critical sectors such\nas forensics, journalism, and the legal system. While existing detection\nsystems have made significant progress in classification accuracy, they\ntypically function as black-box models, offering limited transparency and\nminimal support for human reasoning. This lack of interpretability hinders\ntheir usability in real-world decision-making contexts, especially for\nnon-expert users. In this paper, we present DF-P2E (Deepfake: Prediction to\nExplanation), a novel multimodal framework that integrates visual, semantic,\nand narrative layers of explanation to make deepfake detection interpretable\nand accessible. The framework consists of three modular components: (1) a\ndeepfake classifier with Grad-CAM-based saliency visualisation, (2) a visual\ncaptioning module that generates natural language summaries of manipulated\nregions, and (3) a narrative refinement module that uses a fine-tuned Large\nLanguage Model (LLM) to produce context-aware, user-sensitive explanations. We\ninstantiate and evaluate the framework on the DF40 benchmark, the most diverse\ndeepfake dataset to date. Experiments demonstrate that our system achieves\ncompetitive detection performance while providing high-quality explanations\naligned with Grad-CAM activations. By unifying prediction and explanation in a\ncoherent, human-aligned pipeline, this work offers a scalable approach to\ninterpretable deepfake detection, advancing the broader vision of trustworthy\nand transparent AI systems in adversarial media environments.",
+      "published": "2025-08-11T03:55:47+00:00",
+      "url": "http://arxiv.org/abs/2508.07596v1",
+      "pdf_url": "http://arxiv.org/pdf/2508.07596v1",
+      "categories": [
+        "cs.CV"
+      ],
+      "relevance_score": 0.25
+    },
+    {
+      "title": "RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection",
+      "authors": [
+        "Tianxiao Li",
+        "Zhenglin Huang",
+        "Haiquan Wen",
+        "Yiwei He",
+        "Shuchang Lyu",
+        "Baoyuan Wu",
+        "Guangliang Cheng"
+      ],
+      "abstract": "The rapid advancement of AI-generation models has enabled the creation of\nhyperrealistic imagery, posing ethical risks through widespread misinformation.\nCurrent deepfake detection methods, categorized as face specific detectors or\ngeneral AI-generated detectors, lack transparency by framing detection as a\nclassification task without explaining decisions. While several LLM-based\napproaches offer explainability, they suffer from coarse-grained analyses and\ndependency on labor-intensive annotations. This paper introduces RAIDX\n(Retrieval-Augmented Image Deepfake Detection and Explainability), a novel\ndeepfake detection framework integrating Retrieval-Augmented Generation (RAG)\nand Group Relative Policy Optimization (GRPO) to enhance detection accuracy and\ndecision explainability. Specifically, RAIDX leverages RAG to incorporate\nexternal knowledge for improved detection accuracy and employs GRPO to\nautonomously generate fine-grained textual explanations and saliency maps,\neliminating the need for extensive manual annotations. Experiments on multiple\nbenchmarks demonstrate RAIDX's effectiveness in identifying real or fake, and\nproviding interpretable rationales in both textual descriptions and saliency\nmaps, achieving state-of-the-art detection performance while advancing\ntransparency in deepfake identification. RAIDX represents the first unified\nframework to synergize RAG and GRPO, addressing critical gaps in accuracy and\nexplainability. Our code and models will be publicly available.",
+      "published": "2025-08-06T15:08:16+00:00",
+      "url": "http://arxiv.org/abs/2508.04524v1",
+      "pdf_url": "http://arxiv.org/pdf/2508.04524v1",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "relevance_score": 0.25
+    },
+    {
+      "title": "HOLA: Enhancing Audio-visual Deepfake Detection via Hierarchical Contextual Aggregations and Efficient Pre-training",
+      "authors": [
+        "Xuecheng Wu",
+        "Danlei Huang",
+        "Heli Sun",
+        "Xinyi Yin",
+        "Yifan Wang",
+        "Hao Wang",
+        "Jia Zhang",
+        "Fei Wang",
+        "Peihao Guo",
+        "Suyu Xing",
+        "Junxiao Xue",
+        "Liang He"
+      ],
+      "abstract": "Advances in Generative AI have made video-level deepfake detection\nincreasingly challenging, exposing the limitations of current detection\ntechniques. In this paper, we present HOLA, our solution to the Video-Level\nDeepfake Detection track of 2025 1M-Deepfakes Detection Challenge. Inspired by\nthe success of large-scale pre-training in the general domain, we first scale\naudio-visual self-supervised pre-training in the multimodal video-level\ndeepfake detection, which leverages our self-built dataset of 1.81M samples,\nthereby leading to a unified two-stage framework. To be specific, HOLA features\nan iterative-aware cross-modal learning module for selective audio-visual\ninteractions, hierarchical contextual modeling with gated aggregations under\nthe local-global perspective, and a pyramid-like refiner for scale-aware\ncross-grained semantic enhancements. Moreover, we propose the pseudo supervised\nsingal injection strategy to further boost model performance. Extensive\nexperiments across expert models and MLLMs impressivly demonstrate the\neffectiveness of our proposed HOLA. We also conduct a series of ablation\nstudies to explore the crucial design factors of our introduced components.\nRemarkably, our HOLA ranks 1st, outperforming the second by 0.0476 AUC on the\nTestA set.",
+      "published": "2025-07-30T15:47:12+00:00",
+      "url": "http://arxiv.org/abs/2507.22781v1",
+      "pdf_url": "http://arxiv.org/pdf/2507.22781v1",
+      "categories": [
+        "cs.CV"
+      ],
+      "relevance_score": 0.25
+    },
+    {
+      "title": "Deepfake Detection Via Facial Feature Extraction and Modeling",
+      "authors": [
+        "Benjamin Carter",
+        "Nathan Dilla",
+        "Micheal Callahan",
+        "Atuhaire Ambala"
+      ],
+      "abstract": "The rise of deepfake technology brings forth new questions about the\nauthenticity of various forms of media found online today. Videos and images\ngenerated by artificial intelligence (AI) have become increasingly more\ndifficult to differentiate from genuine media, resulting in the need for new\nmodels to detect artificially-generated media. While many models have attempted\nto solve this, most focus on direct image processing, adapting a convolutional\nneural network (CNN) or a recurrent neural network (RNN) that directly\ninteracts with the video image data. This paper introduces an approach of using\nsolely facial landmarks for deepfake detection. Using a dataset consisting of\nboth deepfake and genuine videos of human faces, this paper describes an\napproach for extracting facial landmarks for deepfake detection, focusing on\nidentifying subtle inconsistencies in facial movements instead of raw image\nprocessing. Experimental results demonstrated that this feature extraction\ntechnique is effective in various neural network models, with the same facial\nlandmarks tested on three neural network models, with promising performance\nmetrics indicating its potential for real-world applications. The findings\ndiscussed in this paper include RNN and artificial neural network (ANN) models\nwith accuracy between 96% and 93%, respectively, with a CNN model hovering\naround 78%. This research challenges the assumption that raw image processing\nis necessary to identify deepfake videos by presenting a facial feature\nextraction approach compatible with various neural network models while\nrequiring fewer parameters.",
+      "published": "2025-07-24T21:30:51+00:00",
+      "url": "http://arxiv.org/abs/2507.18815v1",
+      "pdf_url": "http://arxiv.org/pdf/2507.18815v1",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "relevance_score": 0.25
+    },
+    {
+      "title": "ViGText: Deepfake Image Detection with Vision-Language Model Explanations and Graph Neural Networks",
+      "authors": [
+        "Ahmad ALBarqawi",
+        "Mahmoud Nazzal",
+        "Issa Khalil",
+        "Abdallah Khreishah",
+        "NhatHai Phan"
+      ],
+      "abstract": "The rapid rise of deepfake technology, which produces realistic but\nfraudulent digital content, threatens the authenticity of media. Traditional\ndeepfake detection approaches often struggle with sophisticated, customized\ndeepfakes, especially in terms of generalization and robustness against\nmalicious attacks. This paper introduces ViGText, a novel approach that\nintegrates images with Vision Large Language Model (VLLM) Text explanations\nwithin a Graph-based framework to improve deepfake detection. The novelty of\nViGText lies in its integration of detailed explanations with visual data, as\nit provides a more context-aware analysis than captions, which often lack\nspecificity and fail to reveal subtle inconsistencies. ViGText systematically\ndivides images into patches, constructs image and text graphs, and integrates\nthem for analysis using Graph Neural Networks (GNNs) to identify deepfakes.\nThrough the use of multi-level feature extraction across spatial and frequency\ndomains, ViGText captures details that enhance its robustness and accuracy to\ndetect sophisticated deepfakes. Extensive experiments demonstrate that ViGText\nsignificantly enhances generalization and achieves a notable performance boost\nwhen it detects user-customized deepfakes. Specifically, average F1 scores rise\nfrom 72.45% to 98.32% under generalization evaluation, and reflects the model's\nsuperior ability to generalize to unseen, fine-tuned variations of stable\ndiffusion models. As for robustness, ViGText achieves an increase of 11.1% in\nrecall compared to other deepfake detection approaches. When facing targeted\nattacks that exploit its graph-based architecture, ViGText limits\nclassification performance degradation to less than 4%. ViGText uses detailed\nvisual and textual analysis to set a new standard for detecting deepfakes,\nhelping ensure media authenticity and information integrity.",
+      "published": "2025-07-24T02:04:58+00:00",
+      "url": "http://arxiv.org/abs/2507.18031v1",
+      "pdf_url": "http://arxiv.org/pdf/2507.18031v1",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "relevance_score": 0.25
+    }
+  ],
+  "top_repositories": [
+    {
+      "name": "Face-Forgery-Detection",
+      "full_name": "Chandanirajput/Face-Forgery-Detection",
+      "description": "Face forgery detection, also known as deepfake detection, is the task of identifying whether a digital face image or video has been manipulated or is a genuine, unaltered image. This field is crucial for combating misinformation and protecting against malicious use of fake media.",
+      "url": "https://github.com/Chandanirajput/Face-Forgery-Detection",
+      "stars": 0,
+      "forks": 0,
+      "language": "Jupyter Notebook",
+      "updated_at": "2025-06-21T04:19:46Z",
+      "topics": [],
+      "relevance_score": 0.25
+    },
+    {
+      "name": "SUR-LID",
+      "full_name": "beautyremain/SUR-LID",
+      "description": "The official code for paper \"Stacking Brick by Brick: Aligned Feature Isolation for Incremental Face Forgery Detection\" (CVPR 2025)",
+      "url": "https://github.com/beautyremain/SUR-LID",
+      "stars": 20,
+      "forks": 0,
+      "language": "Python",
+      "updated_at": "2025-08-18T12:50:23Z",
+      "topics": [
+        "deepfake-detection"
+      ],
+      "relevance_score": 0.15
+    },
+    {
+      "name": "PIA",
+      "full_name": "skrantidatta/PIA",
+      "description": "PIA: Deepfake Detection Using Phoneme-Temporal and Identity-Dynamic Analysis",
+      "url": "https://github.com/skrantidatta/PIA",
+      "stars": 1,
+      "forks": 0,
+      "language": null,
+      "updated_at": "2025-08-19T05:52:33Z",
+      "topics": [],
+      "relevance_score": 0.15
+    },
+    {
+      "name": "third-eye",
+      "full_name": "cipherexx/third-eye",
+      "description": "Deepfake Detection Model based on F3Net- Frequency in Face Forgery Network",
+      "url": "https://github.com/cipherexx/third-eye",
+      "stars": 1,
+      "forks": 0,
+      "language": "Python",
+      "updated_at": "2025-06-28T11:49:06Z",
+      "topics": [],
+      "relevance_score": 0.15
+    },
+    {
+      "name": "TAFAHAS-AI-Powered-DeepFake-Voice-Detection",
+      "full_name": "iHaneenHMD/TAFAHAS-AI-Powered-DeepFake-Voice-Detection",
+      "description": "AI-powered DeepFake voice detection system using CNN, BiLSTM, and hybrid spectrogram-based analysis with data augmentation. Achieved 93.54% accuracy. Includes demo video, presentation slides, and sample files.",
+      "url": "https://github.com/iHaneenHMD/TAFAHAS-AI-Powered-DeepFake-Voice-Detection",
+      "stars": 0,
+      "forks": 0,
+      "language": "Jupyter Notebook",
+      "updated_at": "2025-08-19T08:43:16Z",
+      "topics": [],
+      "relevance_score": 0.15
+    }
+  ],
+  "benchmark_summary": [
+    {
+      "dataset": "FaceForensics++",
+      "best_accuracy": "99.3%",
+      "best_method": "Ensemble ViT + EfficientNet",
+      "year": "2024",
+      "paper": "Latest ensemble methods paper"
+    },
+    {
+      "dataset": "Celeb-DF",
+      "best_accuracy": "97.8%",
+      "best_method": "Attention-based CNN",
+      "year": "2024",
+      "paper": "Attention mechanisms paper"
+    },
+    {
+      "dataset": "DFDC",
+      "best_accuracy": "88.9%",
+      "best_method": "Multi-scale Feature Fusion",
+      "year": "2023",
+      "paper": "Feature fusion paper"
+    },
+    {
+      "dataset": "DeeperForensics-1.0",
+      "best_accuracy": "94.2%",
+      "best_method": "Vision Transformer",
+      "year": "2024",
+      "paper": "ViT adaptation paper"
+    }
+  ]
+}

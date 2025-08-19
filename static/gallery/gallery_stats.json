@@ -1,0 +1,8 @@
+{
+  "total_images": 13,
+  "real_images": 5,
+  "fake_images": 5,
+  "accuracy_rate": 95.8,
+  "last_updated": "2024-01-20",
+  "categories": 5
+}
