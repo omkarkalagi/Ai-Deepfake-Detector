@@ -1,18 +1,1 @@
-# Core Framework - Essential for Vercel
 Flask==2.3.3
-Werkzeug==2.3.7
-
-# Basic utilities
-numpy==1.24.3
-Pillow==10.0.1
-requests==2.31.0
-
-# Optional dependencies (commented out for Vercel compatibility)
-# tensorflow==2.13.0
-# scikit-learn==1.3.0
-# opencv-python-headless==4.8.1.78
-# matplotlib==3.7.2
-# pandas==2.0.3
-# beautifulsoup4==4.12.2
-# tqdm==4.66.1
-# gunicorn==21.2.0
