@@ -4,8 +4,8 @@ import random
 import time
 from datetime import datetime
 
-# Configure Flask for Vercel serverless - use same templates as local
-app = Flask(__name__, template_folder='../templates', static_folder='../static')
+# Configure Flask for Vercel serverless - use local templates
+app = Flask(__name__, template_folder='templates', static_folder='../static')
 
 # Configure Flask for Vercel
 app.config['UPLOAD_FOLDER'] = '/tmp'
