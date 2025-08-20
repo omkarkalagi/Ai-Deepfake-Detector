@@ -29,6 +29,6 @@
     "iad1"
   ],
   "github": {
-    "silent": true
+    "silent": false
   }
 }
