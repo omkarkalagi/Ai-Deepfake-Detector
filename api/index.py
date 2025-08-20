@@ -1,7 +1,5 @@
 from flask import Flask, request, jsonify, render_template, session, redirect, url_for
 from flask_cors import CORS
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 import os
 import random
 import time
@@ -25,12 +23,7 @@ app.secret_key = os.environ.get('SECRET_KEY', 'deepfake-detector-2024-advanced-k
 # Enable CORS for API endpoints
 CORS(app)
 
-# Rate limiting for API protection
-limiter = Limiter(
-    app,
-    key_func=get_remote_address,
-    default_limits=["200 per day", "50 per hour"]
-)
+# Rate limiting removed for deployment compatibility
 
 # Advanced AI Model Configuration
 class DeepfakeDetectionModels:
@@ -647,7 +640,6 @@ def get_analysis_history():
     return jsonify(demo_history)
 
 @app.route('/api/upload', methods=['POST'])
-@limiter.limit("10 per minute")
 def upload_file():
     """Advanced file upload and analysis API"""
     if 'file' not in request.files:
@@ -704,7 +696,6 @@ def upload_file():
         }), 500
 
 @app.route('/api/chatbot', methods=['POST'])
-@limiter.limit("30 per minute")
 def chatbot_endpoint():
     """Advanced AI Chatbot for Deepfake Detection Support"""
     try:
