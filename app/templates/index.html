@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Deepfake Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Advanced Deepfake Detector</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('realtime') }}">Real-time Analysis</a></li>
+                <li><a href="{{ url_for('batch') }}">Batch Processing</a></li>
+                <li><a href="{{ url_for('api') }}">API</a></li>
+                <li><a href="{{ url_for('documentation') }}">Documentation</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="upload">
+            <h2>Upload Image for Analysis</h2>
+            <form id="upload-form" enctype="multipart/form-data">
+                <input type="file" name="file" accept="image/*" required>
+                <button type="submit">Analyze</button>
+            </form>
+        </section>
+
+        <section id="results" style="display: none;">
+            <h2>Analysis Results</h2>
+            <div id="result-content"></div>
+        </section>
+
+        <section id="model-metrics">
+            <h2>Model Performance</h2>
+            <ul>
+                <li>Accuracy: {{ accuracy }}%</li>
+                <li>Precision: {{ precision }}%</li>
+                <li>Recall: {{ recall }}%</li>
+                <li>F1 Score: {{ f1_score }}</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <div class="footer-section">
+                <h6>AI Solutions</h6>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Deepfake Detection</a></li>
+                    <li><a href="{{ url_for('realtime') }}">Real-time Analysis</a></li>
+                    <li><a href="{{ url_for('batch') }}">Batch Processing</a></li>
+                    <li><a href="{{ url_for('api') }}">API Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h6>Resources</h6>
+                <ul>
+                    <li><a href="{{ url_for('documentation') }}">Documentation</a></li>
+                    <li><a href="{{ url_for('training') }}">Model Training</a></li>
+                    <li><a href="{{ url_for('statistics') }}">Performance Stats</a></li>
+                    <li><a href="{{ url_for('gallery') }}">Image Gallery</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h6>Company</h6>
+                <ul>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Team</a></li>
+                    <li><a href="tel:+917624828106">Call: +91 7624828106</a></li>
+                    <li><a href="mailto:omkar.digambar@kalagigroup.com">Email Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <p>&copy; 2025 Kalagi Group of Companies. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
