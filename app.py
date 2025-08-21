@@ -595,3 +595,8 @@ def health_check():
         'model_loaded': detector_instance.model is not None,
         'model_path': detector_instance.model_path
     })
+
+# Root endpoint for Railway
+@app.route('/')
+def root():
+    return detector_instance.app.view_functions['upload_file']()
