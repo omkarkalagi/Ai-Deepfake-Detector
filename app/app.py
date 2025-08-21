@@ -28,6 +28,7 @@ class AdvancedDeepfakeDetector:
         self.app.add_url_rule('/realtime', 'realtime', self.realtime)
         self.app.add_url_rule('/batch', 'batch', self.batch)
         self.app.add_url_rule('/api', 'api', self.api)
+        self.app.add_url_rule('/api/explorer', 'api_explorer', self.api_explorer)
         self.app.add_url_rule('/documentation', 'documentation', self.documentation)
         self.app.add_url_rule('/training', 'training', self.training)
         self.app.add_url_rule('/statistics', 'statistics', self.statistics)
@@ -79,8 +80,49 @@ class AdvancedDeepfakeDetector:
         """Health check endpoint."""
         return jsonify({"status": "healthy"}), 200
         
+    def health(self):
+        """Health check endpoint."""
+        return jsonify({"status": "healthy"}), 200
+
     def realtime(self):
-        return render_template('realtime.html')
+        """Real-time detection page."""
+        return render_template('realtime.html', **self.model_metrics)
+
+    def batch(self):
+        """Batch processing page."""
+        return render_template('batch_processing.html', **self.model_metrics)
+
+    def api(self):
+        """API documentation page."""
+        return render_template('api_explorer.html', **self.model_metrics)
+
+    def api_explorer(self):
+        """Interactive API explorer."""
+        return render_template('api_explorer.html', **self.model_metrics)
+
+    def documentation(self):
+        """Documentation page."""
+        return render_template('documentation.html', **self.model_metrics)
+
+    def training(self):
+        """Model training page."""
+        return render_template('training.html', **self.model_metrics)
+
+    def statistics(self):
+        """Statistics and analytics page."""
+        return render_template('statistics.html', **self.model_metrics)
+
+    def gallery(self):
+        """Example gallery page."""
+        return render_template('gallery.html', **self.model_metrics)
+
+    def about(self):
+        """About page."""
+        return render_template('about.html', **self.model_metrics)
+
+    def contact(self):
+        """Contact page."""
+        return render_template('contact.html', **self.model_metrics)
 
     def batch(self):
         return render_template('batch.html')
