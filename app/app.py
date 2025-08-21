@@ -4,6 +4,9 @@ from werkzeug.utils import secure_filename
 import os
 import random
 from datetime import datetime
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from create_demo_model import DemoModel
 
 class AdvancedDeepfakeDetector:
     def __init__(self):
@@ -12,12 +15,9 @@ class AdvancedDeepfakeDetector:
         # Ensure upload folder exists
         os.makedirs(self.app.config['UPLOAD_FOLDER'], exist_ok=True)
         
-        self.model_metrics = {
-            'accuracy': 97.3,
-            'precision': 96.8,
-            'recall': 97.5,
-            'f1_score': 97.1
-        }
+        # Initialize the demo model
+        self.model = DemoModel()
+        self.model_metrics = self.model.model_config['performance']
         self.setup_routes()
 
     def setup_routes(self):
@@ -48,6 +48,30 @@ class AdvancedDeepfakeDetector:
             filename = secure_filename(file.filename)
             file_path = os.path.join(self.app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
+            
+            try:
+                # Use the demo model to analyze the image
+                result = self.model.predict(file_path)
+                
+                # Clean up the uploaded file
+                os.remove(file_path)
+                
+                # Format the response
+                response = {
+                    'result': 'Fake' if result['is_fake'] else 'Real',
+                    'confidence_score': result['confidence'],
+                    'is_edited': result['analysis']['manipulation_score'] > 0.3,
+                    'editing_percentage': result['analysis']['manipulation_score'] * 100,
+                    'quality_score': (10 - result['analysis']['noise_level'] * 10),
+                    'image_resolution': '128x128',  # Fixed for demo
+                    'features_detected': int(40 + result['analysis']['sharpness'] / 10),
+                    'analysis_details': result['analysis']
+                }
+                return jsonify(response)
+            except Exception as e:
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+                return jsonify({'error': str(e)})
             analysis_result = self.comprehensive_analysis(file_path)
             return jsonify(analysis_result)
 

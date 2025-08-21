@@ -1,19 +1,27 @@
-<!DOCTYPE html><html lang="en"><head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AI Deepfake Detector - Advanced deepfake detection using machine learning">
-    <!-- Critical Resource Hints for Maximum Speed -->
-    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
-    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="{{ url_for('static', filename='theme-manager.js') }}" as="script">
-    <link rel="preload" href="{{ url_for('static', filename='advanced-loader.js') }}" as="script">
-    <link rel="preload" href="{{ url_for('static', filename='interactive-enhancements.js') }}" as="script">
-    <link rel="preload" href="{{ url_for('static', filename='chatbot.js') }}" as="script">
+{% extends "base.html" %}
+
+{% block title %}Deepfake Detector - Home{% endblock %}
+
+{% block extra_css %}
+<style>
+    .upload-area {
+        border: 2px dashed #ccc;
+        border-radius: 10px;
+        padding: 2rem;
+        text-align: center;
+        margin: 2rem 0;
+        background-color: #f8f9fa;
+    }
+    .upload-area:hover {
+        border-color: #007bff;
+        background-color: #f1f8ff;
+    }
+    .result-section {
+        display: none;
+        margin-top: 2rem;
+    }
+</style>
+{% endblock %}
 <!-- Advanced Resource Preloading -->
 <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
 <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
