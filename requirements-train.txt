@@ -1,0 +1,24 @@
+# Heavier stack for local training and high-accuracy inference
+# Use your GPU-enabled environment if available.
+# Pin versions known to work well together.
+
+# Core
+numpy==1.24.3
+Pillow==10.0.1
+
+# TensorFlow CPU (or install GPU variant manually if you have CUDA/CuDNN)
+tensorflow==2.13.0
+
+# Model/training utilities
+tensorflow-addons==0.21.0
+scikit-learn==1.3.2
+pandas==2.1.1
+matplotlib==3.8.0
+albumentations==1.3.1
+imgaug==0.4.0
+
+# OpenCV (full)
+opencv-python==4.8.1.78
+
+# Jupyter optional for experiments
+jupyterlab==4.0.6

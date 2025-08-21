@@ -8,16 +8,32 @@ import io
 import json
 from datetime import datetime
 
-# Try to import TensorFlow and OpenCV, but make them optional for demo
+# Try to import dependencies with granular fallbacks
+HAS_TF = False
+HAS_CV2 = False
+HAS_PIL = False
+
+# TensorFlow (optional for model inference)
 try:
-    from tensorflow.keras.models import load_model # type: ignore
-    from tensorflow.keras.preprocessing import image # type: ignore
+    from tensorflow.keras.models import load_model  # type: ignore
+    from tensorflow.keras.preprocessing import image  # type: ignore
+    HAS_TF = True
+except Exception:
+    print("TensorFlow not available - running without model inference")
+
+# OpenCV (used for image analysis)
+try:
     import cv2
+    HAS_CV2 = True
+except Exception:
+    print("OpenCV (cv2) not available - image analysis will use fallbacks")
+
+# PIL (used for image I/O and stats)
+try:
     from PIL import Image, ImageStat, ImageEnhance
-    FULL_FEATURES = True
-except ImportError:
-    FULL_FEATURES = False
-    print("Running in demo mode - some dependencies not available")
+    HAS_PIL = True
+except Exception:
+    print("PIL not available - some features will use fallbacks")
 
 
 class AdvancedDeepfakeDetector:
@@ -34,15 +50,15 @@ class AdvancedDeepfakeDetector:
 
         # Try to load model, but continue without it for demo
         self.model = None
-        if FULL_FEATURES and model_path and os.path.exists(model_path):
+        if HAS_TF and model_path and os.path.exists(model_path):
             try:
                 self.model = load_model(model_path)
                 print(f"Model loaded successfully from {model_path}")
             except Exception as e:
                 print(f"Could not load model: {e}")
-                print("Running in demo mode without actual model")
+                print("Running without TensorFlow model - using simulated predictions")
         else:
-            print("Running in demo mode - using simulated predictions")
+            print("TensorFlow model not loaded - using simulated predictions")
         
         # Model performance metrics
         self.model_metrics = {
@@ -168,13 +184,20 @@ class AdvancedDeepfakeDetector:
 
     def predict_image(self, file_path):
         """Predict whether an image is Real or Fake."""
-        if self.model and FULL_FEATURES:
+        if self.model and HAS_TF:
             # Use actual model prediction
             img = image.load_img(file_path, target_size=(128, 128))
             img_array = image.img_to_array(img)
             img_array = np.expand_dims(img_array, axis=0)
-            result = self.model.predict(img_array, verbose=0)
-            prediction = result[0][0]
+            # Normalize to [0,1] if model expects it
+            try:
+                img_array = img_array / 255.0
+                result = self.model.predict(img_array, verbose=0)
+                prediction = float(result[0][0])
+            except Exception:
+                # Fallback in case model input pipeline differs
+                result = self.model.predict(np.expand_dims(image.img_to_array(image.load_img(file_path, target_size=(128, 128))), axis=0), verbose=0)
+                prediction = float(result[0][0])
             prediction_percentage = prediction * 100
         else:
             # Demo mode - generate realistic fake predictions
@@ -185,11 +208,13 @@ class AdvancedDeepfakeDetector:
 
     def analyze_image_features(self, file_path):
         """Analyze various image features for detailed reporting."""
-        if FULL_FEATURES:
+        if HAS_CV2 and HAS_PIL:
             try:
                 # Load image with OpenCV and PIL
                 img_cv = cv2.imread(file_path)
                 img_pil = Image.open(file_path)
+                if img_cv is None:
+                    raise ValueError("Failed to read image with OpenCV")
 
                 # Edge detection analysis
                 gray = cv2.cvtColor(img_cv, cv2.COLOR_BGR2GRAY)
@@ -199,11 +224,11 @@ class AdvancedDeepfakeDetector:
 
                 # Color analysis
                 stat = ImageStat.Stat(img_pil)
-                color_variance = np.var(stat.mean)
+                color_variance = float(np.var(stat.mean))
                 color_score = min(100, max(0, color_variance * 2))
 
                 # Texture analysis using Laplacian variance
-                laplacian_var = cv2.Laplacian(gray, cv2.CV_64F).var()
+                laplacian_var = float(cv2.Laplacian(gray, cv2.CV_64F).var())
                 texture_score = min(100, max(0, laplacian_var / 10))
 
                 # Geometric features based on contour analysis
@@ -239,13 +264,17 @@ class AdvancedDeepfakeDetector:
 
     def calculate_noise_level(self, gray_image):
         """Calculate noise level in the image."""
+        if not HAS_CV2:
+            return round(random.uniform(10, 30), 1)
         # Use standard deviation of Laplacian as noise measure
         laplacian = cv2.Laplacian(gray_image, cv2.CV_64F)
-        noise = laplacian.std()
+        noise = float(laplacian.std())
         return min(100, max(0, noise / 50 * 100))
 
     def detect_compression_artifacts(self, img):
         """Detect JPEG compression artifacts."""
+        if not HAS_CV2:
+            return round(random.uniform(20, 40), 1)
         # Convert to YUV color space
         yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
         y_channel = yuv[:, :, 0]
@@ -253,14 +282,14 @@ class AdvancedDeepfakeDetector:
         # Calculate DCT to detect 8x8 block artifacts
         h, w = y_channel.shape
         block_size = 8
-        artifact_score = 0
+        artifact_score = 0.0
         
         for i in range(0, h - block_size, block_size):
             for j in range(0, w - block_size, block_size):
                 block = y_channel[i:i+block_size, j:j+block_size].astype(np.float32)
                 dct = cv2.dct(block)
                 # High frequency components indicate compression
-                high_freq = np.sum(np.abs(dct[4:, 4:]))
+                high_freq = float(np.sum(np.abs(dct[4:, 4:])))
                 artifact_score += high_freq
         
         # Normalize score
@@ -272,9 +301,11 @@ class AdvancedDeepfakeDetector:
 
     def detect_image_editing(self, file_path):
         """Detect if image has been edited/manipulated and return editing percentage."""
-        if FULL_FEATURES:
+        if HAS_CV2:
             try:
                 img = cv2.imread(file_path)
+                if img is None:
+                    raise ValueError("Failed to read image with OpenCV")
                 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
                 # Detect JPEG compression artifacts
@@ -307,6 +338,8 @@ class AdvancedDeepfakeDetector:
 
     def detect_noise_inconsistencies(self, gray_image):
         """Detect noise inconsistencies that indicate editing."""
+        if not HAS_CV2:
+            return round(random.uniform(10, 30), 1)
         # Divide image into blocks and analyze noise
         h, w = gray_image.shape
         block_size = 32
@@ -315,16 +348,18 @@ class AdvancedDeepfakeDetector:
         for i in range(0, h - block_size, block_size):
             for j in range(0, w - block_size, block_size):
                 block = gray_image[i:i+block_size, j:j+block_size]
-                noise = cv2.Laplacian(block, cv2.CV_64F).var()
+                noise = float(cv2.Laplacian(block, cv2.CV_64F).var())
                 noise_scores.append(noise)
 
         if len(noise_scores) > 1:
-            noise_variance = np.var(noise_scores)
+            noise_variance = float(np.var(noise_scores))
             return min(100, noise_variance / 100)
         return 0
 
     def detect_edge_inconsistencies(self, gray_image):
         """Detect edge inconsistencies that indicate editing."""
+        if not HAS_CV2:
+            return round(random.uniform(10, 30), 1)
         edges = cv2.Canny(gray_image, 50, 150)
 
         # Analyze edge density in different regions
@@ -337,12 +372,14 @@ class AdvancedDeepfakeDetector:
         ]
 
         densities = [np.sum(region > 0) / region.size for region in regions]
-        edge_variance = np.var(densities) * 10000
+        edge_variance = float(np.var(densities) * 10000)
 
         return min(100, edge_variance)
 
     def detect_color_inconsistencies(self, img):
         """Detect color inconsistencies that indicate editing."""
+        if not HAS_CV2:
+            return round(random.uniform(20, 40), 1)
         # Convert to LAB color space for better color analysis
         lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
 
@@ -360,7 +397,7 @@ class AdvancedDeepfakeDetector:
         color_variance = np.var(color_means, axis=0)
 
         # Combine L, A, B variances
-        total_variance = np.sum(color_variance)
+        total_variance = float(np.sum(color_variance))
 
         return min(100, max(0, total_variance / 10))
 
@@ -383,21 +420,38 @@ class AdvancedDeepfakeDetector:
         return min(10.0, max(0.0, quality))
 
     def generate_preprocessing_visualization(self, file_path):
-        """Generate preprocessing visualization data."""
-        img = cv2.imread(file_path)
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        
-        # Edge detection
-        edges = cv2.Canny(gray, 50, 150)
-        
-        # Histogram data
-        hist = cv2.calcHist([gray], [0], None, [256], [0, 256])
-        hist_data = hist.flatten().tolist()
-        
-        return {
-            'histogram': hist_data,
-            'edge_density': float(np.sum(edges > 0) / edges.size * 100)
-        }
+        """Generate preprocessing visualization data with safe fallbacks."""
+        if HAS_CV2:
+            img = cv2.imread(file_path)
+            if img is None:
+                return {'histogram': [], 'edge_density': 0.0}
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            
+            # Edge detection
+            edges = cv2.Canny(gray, 50, 150)
+            
+            # Histogram data
+            hist = cv2.calcHist([gray], [0], None, [256], [0, 256])
+            hist_data = hist.flatten().tolist()
+            
+            return {
+                'histogram': hist_data,
+                'edge_density': float(np.sum(edges > 0) / edges.size * 100)
+            }
+        # Fallback when cv2 isn't available
+        try:
+            if HAS_PIL:
+                with Image.open(file_path).convert('L') as img_pil:
+                    arr = np.array(img_pil)
+                    hist, _ = np.histogram(arr, bins=256, range=(0, 255))
+                    edge_density = 0.0
+                    return {
+                        'histogram': hist.astype(int).tolist(),
+                        'edge_density': float(edge_density)
+                    }
+        except Exception:
+            pass
+        return {'histogram': [], 'edge_density': 0.0}
 
     def comprehensive_analysis(self, file_path):
         """Perform comprehensive analysis of the uploaded image."""

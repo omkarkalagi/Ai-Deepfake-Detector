@@ -144,9 +144,9 @@ Features:
         python_exe = self.get_python_executable()
         
         try:
-            # Start the enhanced app
+            # Start the robust app (TensorFlow-optional)
             self.server_process = subprocess.Popen([
-                python_exe, "enhanced_app.py"
+                python_exe, "app.py"
             ], cwd=str(self.project_dir))
             
             # Wait for server to start
