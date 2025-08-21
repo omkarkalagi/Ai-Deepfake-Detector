@@ -9,6 +9,9 @@ class AdvancedDeepfakeDetector:
     def __init__(self):
         self.app = Flask(__name__)
         self.app.config['UPLOAD_FOLDER'] = 'uploads'
+        # Ensure upload folder exists
+        os.makedirs(self.app.config['UPLOAD_FOLDER'], exist_ok=True)
+        
         self.model_metrics = {
             'accuracy': 97.3,
             'precision': 96.8,
@@ -19,6 +22,8 @@ class AdvancedDeepfakeDetector:
 
     def setup_routes(self):
         self.app.add_url_rule('/', 'home', self.home)
+        self.app.add_url_rule('/health', 'health', self.health)
+        self.app.add_url_rule('/api/health', 'api_health', self.health)  # Additional health endpoint
         self.app.add_url_rule('/upload', 'upload_file', self.upload_file, methods=['POST'])
         self.app.add_url_rule('/realtime', 'realtime', self.realtime)
         self.app.add_url_rule('/batch', 'batch', self.batch)
@@ -46,6 +51,10 @@ class AdvancedDeepfakeDetector:
             analysis_result = self.comprehensive_analysis(file_path)
             return jsonify(analysis_result)
 
+    def health(self):
+        """Health check endpoint."""
+        return jsonify({"status": "healthy"}), 200
+        
     def realtime(self):
         return render_template('realtime.html')
 
