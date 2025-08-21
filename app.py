@@ -172,6 +172,16 @@ class AdvancedDeepfakeDetector:
             """Batch processing page."""
             return render_template('batch_processing.html')
 
+        @self.app.route('/batch')
+        def batch():
+            """Batch processing page alias."""
+            return render_template('batch_processing.html')
+
+        @self.app.route('/api')
+        def api():
+            """API services page."""
+            return render_template('api_explorer.html')
+
         @self.app.route('/home')
         def home():
             """Alternative home page."""
