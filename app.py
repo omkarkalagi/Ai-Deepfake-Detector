@@ -596,6 +596,14 @@ def health_check():
         'model_path': detector_instance.model_path
     })
 
+# Simple health check endpoint for Railway
+@app.route('/health')
+def simple_health_check():
+    return jsonify({
+        'status': 'healthy',
+        'message': 'AI Deepfake Detector is running'
+    })
+
 # Root endpoint for Railway
 @app.route('/')
 def root():
