@@ -1,0 +1,15 @@
+{
+  "name": "deepfake_detector_demo",
+  "version": "1.0.0",
+  "input_shape": [
+    128,
+    128,
+    3
+  ],
+  "performance": {
+    "accuracy": 92.5,
+    "precision": 91.8,
+    "recall": 93.2,
+    "f1_score": 92.5
+  }
+}

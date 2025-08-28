@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - AI Deepfake Detector</title>
+    <meta name="description" content="Learn about our AI Deepfake Detector team, technology, and mission to combat manipulated media.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" type="image/svg+xml">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+        }
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            color: #2c3e50 !important;
+            margin: 0 8px;
+            padding: 10px 16px !important;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            text-decoration: none;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color) !important;
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .navbar-nav .nav-link.active {
+            color: white !important;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .theme-toggle {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin: 100px auto 20px auto;
+            padding: 40px;
+            max-width: 1200px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .page-title {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .about-section {
+            margin-bottom: 50px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .team-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .team-member {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Stylish Footer Styles */
+        .stylish-footer {
+            background: linear-gradient(135deg, #2c3e50, #34495e, #2c3e50);
+            color: #ecf0f1;
+            padding: 3rem 0 1rem;
+            margin-top: auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .stylish-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .footer-content {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 0 2rem;
+        }
+        .footer-heart {
+            font-size: 3rem;
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .handwriting-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #ecf0f1;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .love-symbol {
+            color: #e74c3c;
+            font-size: 1.2em;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .creator-name {
+            color: #f39c12;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .company-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #3498db;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .company-name {
+            background: linear-gradient(45deg, #3498db, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        .footer-tagline {
+            font-style: italic;
+            color: #bdc3c7;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .footer-copyright {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-top: 2rem;
+        }
+        
+        /* Dark theme styles */
+        .dark-theme {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        }
+        
+        .dark-theme .navbar {
+            background: rgba(44, 62, 80, 0.98) !important;
+        }
+        
+        .dark-theme .main-container {
+            background: rgba(44, 62, 80, 0.95);
+            color: #ecf0f1;
+        }
+        
+        .dark-theme .feature-card,
+        .dark-theme .team-member,
+        .dark-theme .stat-card {
+            background: rgba(52, 73, 94, 0.8);
+            color: #ecf0f1;
+        }
+        
+        .dark-theme .team-section {
+            background: rgba(52, 73, 94, 0.6);
+            color: #ecf0f1;
+        }
+        
+        .dark-theme .navbar-nav .nav-link {
+            color: #ecf0f1 !important;
+        }
+        
+        .dark-theme .navbar-nav .nav-link:hover {
+            color: #3498db !important;
+        }
+        
+        .dark-theme .theme-toggle {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+        
+        .dark-theme .stylish-footer {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #1a1a1a);
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .main-container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .team-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Enhanced Navigation -->
+    {% include 'enhanced_navbar.html' %}
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">About Us</h1>
+                <p class="lead">Leading the fight against deepfakes with cutting-edge AI technology</p>
+            </div>
+
+            <!-- Mission Section -->
+            <div class="about-section">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h3>Our Mission</h3>
+                        <p class="lead">
+                            To provide the most accurate and reliable deepfake detection technology, 
+                            helping preserve truth and authenticity in digital media.
+                        </p>
+                        <p>
+                            In an era where synthetic media is becoming increasingly sophisticated, 
+                            our AI-powered detection system stands as a guardian of digital authenticity. 
+                            We combine advanced machine learning algorithms with comprehensive analysis 
+                            to identify even the most subtle signs of manipulation.
+                        </p>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="stats-section">
+                            <div class="stat-card">
+                                <div class="stat-value">94.2%</div>
+                                <div class="stat-label">Detection Accuracy</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">1M+</div>
+                                <div class="stat-label">Images Analyzed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h4>Advanced AI</h4>
+                    <p>State-of-the-art neural networks trained on millions of samples for precise detection.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4>Real-time Processing</h4>
+                    <p>Lightning-fast analysis that delivers results in seconds, not minutes.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Privacy First</h4>
+                    <p>Your data is processed securely with privacy protection built into every layer.</p>
+                </div>
+            </div>
+
+            <!-- Team Section -->
+            <div class="team-section">
+                <h3 class="text-center mb-4">Our Team</h3>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h5>Omkar Kalagi</h5>
+                        <p class="text-muted">Project Lead & AI Engineer</p>
+                        <p>Lead developer and AI specialist driving the deepfake detection innovation.</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h5>Vani Magadum</h5>
+                        <p class="text-muted">Data Scientist</p>
+                        <p>Expert in machine learning algorithms and model optimization for detection accuracy.</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h5>Pratham Mandre</h5>
+                        <p class="text-muted">Backend Developer</p>
+                        <p>Specialist in scalable backend systems and API development.</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h5>G Bharath Nayaka</h5>
+                        <p class="text-muted">AI Research Engineer</p>
+                        <p>Focused on neural network architectures and deep learning model development.</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h5>Vijaykumar Koujageri</h5>
+                        <p class="text-muted">Full Stack Developer</p>
+                        <p>Expert in frontend technologies and user experience optimization.</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h5>Adarsh G Shet</h5>
+                        <p class="text-muted">DevOps Engineer</p>
+                        <p>Specialist in deployment automation and system infrastructure management.</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h5>Manoj Kengalagutti</h5>
+                        <p class="text-muted">Data Analyst</p>
+                        <p>Expert in data analysis, performance metrics, and statistical modeling.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technology Section -->
+            <div class="about-section">
+                <h3>Our Technology</h3>
+                <p>
+                    Our deepfake detection system employs a multi-layered approach combining:
+                </p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Convolutional Neural Networks for facial analysis</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Temporal consistency analysis for video sequences</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Frequency domain analysis for compression artifacts</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Ensemble methods for improved accuracy</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Continuous learning from new deepfake techniques</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Include Enhanced Footer -->
+    {% include 'enhanced_footer.html' %}
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+
+</body>
+</html>

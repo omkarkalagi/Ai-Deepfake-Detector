@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - AI Deepfake Detector</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" type="image/svg+xml">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            color: #2c3e50 !important;
+            margin: 0 8px;
+            padding: 10px 16px !important;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            text-decoration: none;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color) !important;
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .navbar-nav .nav-link.active {
+            color: white !important;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .theme-toggle {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin: 100px auto 20px auto;
+            padding: 40px;
+            max-width: 1200px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .page-title {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .contact-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-form {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-info {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background: rgba(102, 126, 234, 0.05);
+            transform: translateX(5px);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Dark theme styles */
+        .dark-theme {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        }
+        
+        .dark-theme .navbar {
+            background: rgba(44, 62, 80, 0.98) !important;
+        }
+        
+        .dark-theme .main-container {
+            background: rgba(44, 62, 80, 0.95);
+            color: #ecf0f1;
+        }
+        
+        .dark-theme .contact-section {
+            background: rgba(52, 73, 94, 0.6);
+            color: #ecf0f1;
+        }
+        
+        .dark-theme .contact-form,
+        .dark-theme .contact-info {
+            background: rgba(52, 73, 94, 0.8);
+            color: #ecf0f1;
+        }
+        
+        .dark-theme .form-control {
+            background: rgba(44, 62, 80, 0.8);
+            border-color: #5d6d7e;
+            color: #ecf0f1;
+        }
+        
+        .dark-theme .form-control:focus {
+            background: rgba(44, 62, 80, 0.9);
+            border-color: #3498db;
+            color: #ecf0f1;
+        }
+        
+        .dark-theme .navbar-nav .nav-link {
+            color: #ecf0f1 !important;
+        }
+        
+        .dark-theme .navbar-nav .nav-link:hover {
+            color: #3498db !important;
+        }
+        
+        .dark-theme .theme-toggle {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .main-container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .contact-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-brain me-2"></i>AI Deepfake Detector
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="fas fa-home me-1"></i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gallery"><i class="fas fa-images me-1"></i>Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about"><i class="fas fa-info-circle me-1"></i>About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/contact"><i class="fas fa-envelope me-1"></i>Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="theme-toggle" id="themeToggle">
+                            <i class="fas fa-moon" id="themeIcon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Contact Us</h1>
+                <p class="lead">Get in touch with our team for support, questions, or collaboration</p>
+            </div>
+
+            <div class="row">
+                <!-- Contact Information -->
+                <div class="col-lg-6 mb-4">
+                    <div class="contact-info">
+                        <h4 class="mb-4">Get in Touch</h4>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Developer</h6>
+                                <p class="mb-0 text-muted">Omkar Kalagi - Lead AI Engineer</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Mobile</h6>
+                                <p class="mb-0 text-muted">+91 7624828106</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">WhatsApp</h6>
+                                <p class="mb-0 text-muted"><a href="https://wa.me/917624828106" target="_blank" class="text-decoration-none">+91 7624828106</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">LinkedIn</h6>
+                                <p class="mb-0 text-muted"><a href="https://www.linkedin.com/in/omkardigambar/" target="_blank" class="text-decoration-none">omkardigambar</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">GitHub</h6>
+                                <p class="mb-0 text-muted"><a href="https://github.com/OmkarKalagi" target="_blank" class="text-decoration-none">OmkarKalagi</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Instagram</h6>
+                                <p class="mb-0 text-muted"><a href="https://instagram.com/omkar_kalagi" target="_blank" class="text-decoration-none">@omkar_kalagi</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">YouTube</h6>
+                                <p class="mb-0 text-muted"><a href="https://www.youtube.com/@OmkarKalagi" target="_blank" class="text-decoration-none">@OmkarKalagi</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-telegram"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Telegram</h6>
+                                <p class="mb-0 text-muted"><a href="https://t.me/omkar_kalagi" target="_blank" class="text-decoration-none">@omkar_kalagi</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Education</h6>
+                                <p class="mb-0 text-muted">MCA Student 2025 Batch<br>RV Institute of Technology and Management</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="col-lg-6">
+                    <div class="contact-form">
+                        <h4 class="mb-4">Send us a Message</h4>
+                        
+                        <form name="form" id="contactForm" method="POST" action="https://formspree.io/f/xanwozyr">
+                            <input type="hidden" name="_next" value="https://ai-deepfake-detector.up.railway.app/contact?success=true">
+                            <input type="hidden" name="_subject" value="New Contact Form Submission - AI Deepfake Detector">
+                            <fieldset>
+                                <div class="form-field mb-3">
+                                    <label for="contactName" class="form-label">Name</label>
+                                    <input name="name" type="text" id="contactName" class="form-control" placeholder="Your Full Name" value="" minlength="2" required="">
+                                </div>
+                                <div class="form-field mb-3">
+                                    <label for="contactEmail" class="form-label">Email</label>
+                                    <input name="email" type="email" id="contactEmail" class="form-control" placeholder="your.email@example.com" value="" required="">
+                                </div>
+                                <div class="form-field mb-3">
+                                    <label for="contactPhone" class="form-label">Phone (Optional)</label>
+                                    <input name="phone" type="tel" id="contactPhone" class="form-control" placeholder="+91 XXXXXXXXXX" value="">
+                                </div>
+                                <div class="form-field mb-3">
+                                    <label for="contactSubject" class="form-label">Subject</label>
+                                    <select name="subject" id="contactSubject" class="form-control" required="">
+                                        <option value="">Select Subject</option>
+                                        <option value="General Inquiry">General Inquiry</option>
+                                        <option value="Technical Support">Technical Support</option>
+                                        <option value="API Integration">API Integration</option>
+                                        <option value="Collaboration">Collaboration</option>
+                                        <option value="Bug Report">Bug Report</option>
+                                        <option value="Feature Request">Feature Request</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-field mb-3">
+                                    <label for="contactMessage" class="form-label">Message</label>
+                                    <textarea name="message" id="contactMessage" class="form-control" placeholder="Please describe your inquiry in detail..." rows="6" required=""></textarea>
+                                </div>
+                                <div class="form-field">
+                                    <button type="submit" class="submitform btn btn-primary w-100" name="submit">
+                                        <i class="fas fa-paper-plane me-2"></i>Send Message
+                                    </button>
+                                    <div id="submit-loader" style="display: none;">
+                                        <div class="text-loader">Sending...</div>
+                                        <div class="s-loader">
+                                            <div class="bounce1"></div>
+                                            <div class="bounce2"></div>
+                                            <div class="bounce3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Theme Manager -->
+    <script src="{{ url_for('static', filename='theme-manager.js') }}"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', function(e) {
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                const loader = document.getElementById('submit-loader');
+                
+                // Show loading state
+                submitBtn.style.display = 'none';
+                loader.style.display = 'block';
+                
+                // Let the form submit naturally to Formspree
+                setTimeout(() => {
+                    // Show success message
+                    loader.style.display = 'none';
+                    submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Message Sent!';
+                    submitBtn.style.display = 'block';
+                    submitBtn.disabled = true;
+                    submitBtn.classList.add('btn-success');
+                    submitBtn.classList.remove('btn-primary');
+                    
+                    // Reset after 3 seconds
+                    setTimeout(() => {
+                        contactForm.reset();
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove('btn-success');
+                        submitBtn.classList.add('btn-primary');
+                    }, 3000);
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>

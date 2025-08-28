@@ -1,0 +1,140 @@
+{
+  "categories": {
+    "real": {
+      "name": "Real Images",
+      "description": "Authentic human faces",
+      "images": [
+        {
+          "filename": "authentic_person_1.jpg",
+          "path": "gallery/real/authentic_person_1.jpg",
+          "confidence": 93.1,
+          "result": "Real",
+          "description": "High confidence real detection",
+          "analysis_date": "2024-01-20",
+          "processing_time": "0.25s"
+        },
+        {
+          "filename": "authentic_person_2.jpg",
+          "path": "gallery/real/authentic_person_2.jpg",
+          "confidence": 92.0,
+          "result": "Real",
+          "description": "Natural facial features",
+          "analysis_date": "2024-01-20",
+          "processing_time": "0.16s"
+        },
+        {
+          "filename": "authentic_person_3.jpg",
+          "path": "gallery/real/authentic_person_3.jpg",
+          "confidence": 91.1,
+          "result": "Real",
+          "description": "Authentic human characteristics",
+          "analysis_date": "2024-01-20",
+          "processing_time": "0.19s"
+        },
+        {
+          "filename": "authentic_person_4.jpg",
+          "path": "gallery/real/authentic_person_4.jpg",
+          "confidence": 91.2,
+          "result": "Real",
+          "description": "Real person with natural lighting",
+          "analysis_date": "2024-01-20",
+          "processing_time": "0.20s"
+        },
+        {
+          "filename": "authentic_person_5.jpg",
+          "path": "gallery/real/authentic_person_5.jpg",
+          "confidence": 95.0,
+          "result": "Real",
+          "description": "Natural skin texture patterns",
+          "analysis_date": "2024-01-20",
+          "processing_time": "0.18s"
+        }
+      ]
+    },
+    "fake": {
+      "name": "Deepfake Images",
+      "description": "AI-generated faces",
+      "images": [
+        {
+          "filename": "deepfake_sample_1.jpg",
+          "path": "gallery/fake/deepfake_sample_1.jpg",
+          "confidence": 94.3,
+          "result": "Fake",
+          "description": "AI-generated with subtle artifacts",
+          "analysis_date": "2024-01-20",
+          "processing_time": "0.24s"
+        },
+        {
+          "filename": "deepfake_sample_2.jpg",
+          "path": "gallery/fake/deepfake_sample_2.jpg",
+          "confidence": 82.6,
+          "result": "Fake",
+          "description": "Synthetic facial features detected",
+          "analysis_date": "2024-01-20",
+          "processing_time": "0.24s"
+        },
+        {
+          "filename": "deepfake_sample_3.jpg",
+          "path": "gallery/fake/deepfake_sample_3.jpg",
+          "confidence": 85.0,
+          "result": "Fake",
+          "description": "Digital manipulation identified",
+          "analysis_date": "2024-01-20",
+          "processing_time": "0.23s"
+        },
+        {
+          "filename": "deepfake_sample_4.jpg",
+          "path": "gallery/fake/deepfake_sample_4.jpg",
+          "confidence": 93.6,
+          "result": "Fake",
+          "description": "Generated facial geometry",
+          "analysis_date": "2024-01-20",
+          "processing_time": "0.27s"
+        },
+        {
+          "filename": "deepfake_sample_5.jpg",
+          "path": "gallery/fake/deepfake_sample_5.jpg",
+          "confidence": 94.4,
+          "result": "Fake",
+          "description": "Artificial skin patterns",
+          "analysis_date": "2024-01-20",
+          "processing_time": "0.20s"
+        }
+      ]
+    },
+    "samples": {
+      "name": "Sample Analysis",
+      "description": "Detection comparisons",
+      "images": [
+        {
+          "filename": "comparison_analysis_1.jpg",
+          "path": "gallery/samples/comparison_analysis_1.jpg",
+          "description": "Real vs Fake comparison analysis #1",
+          "type": "comparison"
+        },
+        {
+          "filename": "comparison_analysis_2.jpg",
+          "path": "gallery/samples/comparison_analysis_2.jpg",
+          "description": "Real vs Fake comparison analysis #2",
+          "type": "comparison"
+        },
+        {
+          "filename": "comparison_analysis_3.jpg",
+          "path": "gallery/samples/comparison_analysis_3.jpg",
+          "description": "Real vs Fake comparison analysis #3",
+          "type": "comparison"
+        }
+      ]
+    },
+    "analysis": {
+      "name": "Analysis Results",
+      "description": "Detailed breakdowns",
+      "images": []
+    },
+    "research": {
+      "name": "Research Examples",
+      "description": "Academic research samples",
+      "images": []
+    }
+  }
+}
