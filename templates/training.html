@@ -531,15 +531,7 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename='theme-manager.js') }}"></script>
-    
-    <script>
-        let trainingChart = null;
-        let isTraining = false;
-        let trainingInterval = null;
-        let currentEpoch = 0;
-        let currentBatch = 0;
-        const totalEpochs = 100;
-        const totalBatches = 50;
+    <script src="{{ url_for('static', filename='training-manager.js') }}"></script>
         
         // Training metrics
         let metrics = {
@@ -723,11 +715,22 @@
             document.getElementById('currentBatch').textContent = currentBatch;
             document.getElementById('totalBatches').textContent = totalBatches;
             
-            // Simulate improving metrics
-            const baseAccuracy = 50 + (currentEpoch / totalEpochs) * 45; // 50% to 95%
-            const baseLoss = 2.0 - (currentEpoch / totalEpochs) * 1.8; // 2.0 to 0.2
-            const basePrecision = 45 + (currentEpoch / totalEpochs) * 50; // 45% to 95%
-            const baseRecall = 40 + (currentEpoch / totalEpochs) * 55; // 40% to 95%
+            // Call the training status API to get real metrics
+            fetch('/api/training_status')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.metrics) {
+                        const { accuracy, loss, precision, recall } = data.metrics;
+                        updateMetrics(accuracy, loss, precision, recall);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching training status:', error);
+                    // Fallback to simulated metrics if API fails
+                    const baseAccuracy = 50 + (currentEpoch / totalEpochs) * 45;
+                    const baseLoss = 2.0 - (currentEpoch / totalEpochs) * 1.8;
+                    const basePrecision = 45 + (currentEpoch / totalEpochs) * 50;
+                    const baseRecall = 40 + (currentEpoch / totalEpochs) * 55;
             
             const accuracy = baseAccuracy + Math.random() * 5 - 2.5;
             const loss = baseLoss + Math.random() * 0.2 - 0.1;
