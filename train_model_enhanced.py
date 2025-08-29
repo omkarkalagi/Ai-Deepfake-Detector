@@ -148,7 +148,12 @@ class MultiTrainingSession:
         x = layers.RandomRotation(0.1)(x)
         x = layers.RandomZoom(0.1)(x)
 
-        # Simple CNN architecture instead of EfficientNet
+        # Lightweight CNN architecture optimized for cloud deployment
+        # Reduce model complexity for Railway constraints
+        x = layers.Conv2D(16, (3, 3), activation='relu', padding='same')(x)
+        x = layers.BatchNormalization()(x)
+        x = layers.MaxPooling2D((2, 2))(x)
+        
         x = layers.Conv2D(32, (3, 3), activation='relu', padding='same')(x)
         x = layers.BatchNormalization()(x)
         x = layers.MaxPooling2D((2, 2))(x)
@@ -157,23 +162,10 @@ class MultiTrainingSession:
         x = layers.BatchNormalization()(x)
         x = layers.MaxPooling2D((2, 2))(x)
         
-        x = layers.Conv2D(128, (3, 3), activation='relu', padding='same')(x)
-        x = layers.BatchNormalization()(x)
-        x = layers.MaxPooling2D((2, 2))(x)
-        
-        x = layers.Conv2D(256, (3, 3), activation='relu', padding='same')(x)
-        x = layers.BatchNormalization()(x)
         x = layers.GlobalAveragePooling2D()(x)
         
-        # Feature refinement with batch normalization
-        x = layers.Dense(512, activation=None)(x)
-        x = layers.BatchNormalization()(x)
-        x = layers.Activation('relu')(x)
-        x = layers.Dropout(0.4)(x)
-        
-        x = layers.Dense(256, activation=None)(x)
-        x = layers.BatchNormalization()(x)
-        x = layers.Activation('relu')(x)
+        # Simplified dense layers for Railway optimization
+        x = layers.Dense(128, activation='relu')(x)
         x = layers.Dropout(0.3)(x)
         
         # Output with proper initialization

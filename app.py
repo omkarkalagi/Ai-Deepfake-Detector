@@ -194,31 +194,36 @@ def start_training():
                     'resumed': False
                 })
         else:
-            # Start new training session
-            trainer.create_synthetic_data(1000)
+            # Start new training session with Railway optimizations
+            # Reduce data size and epochs for cloud deployment
+            data_samples = 200 if os.environ.get('RAILWAY_ENVIRONMENT') else 1000
+            max_epochs = min(epochs, 10) if os.environ.get('RAILWAY_ENVIRONMENT') else epochs
+            
+            trainer.create_synthetic_data(data_samples)
             
             # Save initial session state
             session_data = {
                 'model_name': f"training_session_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
-                'epochs': epochs,
+                'epochs': max_epochs,
                 'batch_size': batch_size,
                 'learning_rate': learning_rate,
                 'completed_epochs': 0,
                 'status': 'training',
-                'start_time': datetime.now().isoformat()
+                'start_time': datetime.now().isoformat(),
+                'railway_optimized': bool(os.environ.get('RAILWAY_ENVIRONMENT'))
             }
             trainer.save_session_state(session_data)
             
             try:
                 # Create synthetic data first
-                trainer.create_synthetic_data(1000)
+                trainer.create_synthetic_data(data_samples)
                 
                 # Create and train model
                 model = trainer.create_model_v1()
                 result = trainer.train_model_iteration(
                     model,
                     session_data['model_name'],
-                    epochs
+                    max_epochs
                 )
                 if result is None:
                     raise Exception("Model training failed to produce results")
