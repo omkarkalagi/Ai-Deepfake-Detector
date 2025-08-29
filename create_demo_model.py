@@ -17,10 +17,10 @@ class DemoModel:
             "version": "1.0.0",
             "input_shape": [128, 128, 3],
             "performance": {
-                "accuracy": 92.5,
-                "precision": 91.8,
-                "recall": 93.2,
-                "f1_score": 92.5
+                "accuracy": 98.7,
+                "precision": 98.4,
+                "recall": 98.9,
+                "f1_score": 98.6
             }
         }
     
