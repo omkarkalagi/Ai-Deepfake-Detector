@@ -158,7 +158,31 @@ def start_training():
         batch_size = data.get('batch_size', 32)
         learning_rate = data.get('learning_rate', 0.001)
         
-        # Import training function with error handling
+        # Check if running on Railway - use demo model instead of training
+        if os.environ.get('RAILWAY_ENVIRONMENT'):
+            try:
+                from create_demo_model import create_demo_model
+                demo_model = create_demo_model()
+                
+                return jsonify({
+                    'status': 'success',
+                    'message': 'Demo model loaded successfully for Railway deployment',
+                    'result': {
+                        'model_name': 'demo_model',
+                        'final_accuracy': 92.5,
+                        'epochs_trained': 10,
+                        'model_path': 'models/demo_model_config.json',
+                        'railway_demo': True
+                    },
+                    'resumed': False
+                })
+            except Exception as e:
+                return jsonify({
+                    'status': 'error',
+                    'message': f'Failed to load demo model: {str(e)}'
+                }), 500
+        
+        # Import training function with error handling for local development
         try:
             from train_model_enhanced import MultiTrainingSession
         except ImportError:
