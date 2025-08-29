@@ -222,6 +222,34 @@ def start_training():
             'message': f'Training failed: {str(e)}'
         }), 500
 
+@app.route('/api/download_model')
+def download_model():
+    """Download the trained model."""
+    try:
+        from train_model_enhanced import MultiTrainingSession
+        trainer = MultiTrainingSession()
+        
+        # Check if we have a trained model
+        can_resume, session_data = trainer.can_resume_training()
+        if can_resume and session_data.get('status') == 'completed':
+            model_path = session_data.get('model_path')
+            if model_path and os.path.exists(model_path):
+                return send_from_directory(
+                    os.path.dirname(model_path),
+                    os.path.basename(model_path),
+                    as_attachment=True,
+                    download_name='enhanced_deepfake_detector.keras'
+                )
+        return jsonify({
+            'status': 'error',
+            'message': 'No trained model available for download'
+        }), 404
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Download failed: {str(e)}'
+        }), 500
+
 @app.route('/api/training_status')
 def training_status():
     """Get current training status."""
@@ -232,32 +260,41 @@ def training_status():
         # Check if we have an active training session
         can_resume, session_data = trainer.can_resume_training()
         
-        if can_resume and session_data.get('status') == 'training':
-            # Calculate progress
-            current_epoch = session_data.get('completed_epochs', 0)
-            total_epochs = session_data.get('epochs', 100)
-            progress = (current_epoch / total_epochs) * 100 if total_epochs > 0 else 0
-            
-            return jsonify({
-                'status': 'training',
-                'progress': progress,
-                'current_epoch': current_epoch,
-                'total_epochs': total_epochs,
-                'metrics': {
-                    'accuracy': session_data.get('accuracy', 0),
-                    'loss': session_data.get('loss', 0),
-                    'precision': session_data.get('precision', 0),
-                    'recall': session_data.get('recall', 0)
-                }
-            })
-        else:
+        if not can_resume:
             return jsonify({
                 'status': 'idle',
                 'current_epoch': 0,
                 'total_epochs': 0,
-                'accuracy': 0.0,
-                'loss': 0.0
+                'metrics': {
+                    'accuracy': 0.0,
+                    'loss': 0.0,
+                    'precision': 0.0,
+                    'recall': 0.0
+                }
             })
+            
+        status = session_data.get('status', 'idle')
+        current_epoch = session_data.get('completed_epochs', 0)
+        total_epochs = session_data.get('epochs', 100)
+        progress = (current_epoch / total_epochs) * 100 if total_epochs > 0 else 0
+        
+        response = {
+            'status': status,
+            'progress': progress,
+            'current_epoch': current_epoch,
+            'total_epochs': total_epochs,
+            'metrics': {
+                'accuracy': session_data.get('accuracy', 0),
+                'loss': session_data.get('loss', 0),
+                'precision': session_data.get('precision', 0),
+                'recall': session_data.get('recall', 0)
+            }
+        }
+        
+        if status == 'completed':
+            response['model_available'] = bool(session_data.get('model_path'))
+            
+        return jsonify(response)
     except Exception as e:
         return jsonify({
             'status': 'error',
