@@ -158,8 +158,14 @@ def start_training():
         batch_size = data.get('batch_size', 32)
         learning_rate = data.get('learning_rate', 0.001)
         
-        # Import training function
-        from train_model_enhanced import MultiTrainingSession
+        # Import training function with error handling
+        try:
+            from train_model_enhanced import MultiTrainingSession
+        except ImportError:
+            return jsonify({
+                'status': 'error',
+                'message': 'Training module not available. Please ensure train_model_enhanced.py is present.'
+            }), 500
         
         trainer = MultiTrainingSession()
         
@@ -203,18 +209,32 @@ def start_training():
             }
             trainer.save_session_state(session_data)
             
-            result = trainer.train_model_iteration(
-                trainer.create_model_v1, 
-                session_data['model_name'], 
-                epochs
-            )
-            
-            return jsonify({
-                'status': 'success',
-                'message': 'New training started successfully',
-                'result': result,
-                'resumed': False
-            })
+            try:
+                # Create synthetic data first
+                trainer.create_synthetic_data(1000)
+                
+                # Create and train model
+                model = trainer.create_model_v1()
+                result = trainer.train_model_iteration(
+                    model,
+                    session_data['model_name'],
+                    epochs
+                )
+                if result is None:
+                    raise Exception("Model training failed to produce results")
+                    
+                return jsonify({
+                    'status': 'success',
+                    'message': 'New training started successfully',
+                    'result': result,
+                    'resumed': False
+                })
+                
+            except Exception as e:
+                return jsonify({
+                    'status': 'error',
+                    'message': f'Training failed: {str(e)}'
+                }), 500
         
     except Exception as e:
         return jsonify({
@@ -257,26 +277,27 @@ def training_status():
         from train_model_enhanced import MultiTrainingSession
         trainer = MultiTrainingSession()
         
-        # Check if we have an active training session
-        can_resume, session_data = trainer.can_resume_training()
+        # Load current session data
+        session_data = trainer.load_session_state()
         
-        if not can_resume:
+        if not session_data:
             return jsonify({
                 'status': 'idle',
                 'current_epoch': 0,
                 'total_epochs': 0,
+                'progress': 0,
                 'metrics': {
                     'accuracy': 0.0,
+                    'val_accuracy': 0.0,
                     'loss': 0.0,
-                    'precision': 0.0,
-                    'recall': 0.0
+                    'val_loss': 0.0
                 }
             })
             
         status = session_data.get('status', 'idle')
         current_epoch = session_data.get('completed_epochs', 0)
         total_epochs = session_data.get('epochs', 100)
-        progress = (current_epoch / total_epochs) * 100 if total_epochs > 0 else 0
+        progress = session_data.get('progress', 0)
         
         response = {
             'status': status,
@@ -284,11 +305,12 @@ def training_status():
             'current_epoch': current_epoch,
             'total_epochs': total_epochs,
             'metrics': {
-                'accuracy': session_data.get('accuracy', 0),
-                'loss': session_data.get('loss', 0),
-                'precision': session_data.get('precision', 0),
-                'recall': session_data.get('recall', 0)
-            }
+                'accuracy': session_data.get('current_accuracy', 0),
+                'val_accuracy': session_data.get('current_val_accuracy', 0),
+                'loss': session_data.get('current_loss', 0),
+                'val_loss': session_data.get('current_val_loss', 0)
+            },
+            'last_update': session_data.get('last_update', '')
         }
         
         if status == 'completed':
