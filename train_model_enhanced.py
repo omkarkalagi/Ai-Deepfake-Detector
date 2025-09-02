@@ -370,23 +370,23 @@ class MultiTrainingSession:
         
         return train_generator, val_generator
     
-    def train_model_iteration(self, model, model_name, epochs=20):
-        """Train a single model iteration"""
-        logger.info(f"Starting training iteration: {model_name}")
+    def train_model_iteration(self, model, model_name, epochs=25):
+        """Train a single model iteration with enhanced accuracy focus"""
+        logger.info(f"Starting enhanced training iteration: {model_name}")
         
         try:
             # Clear any existing session to avoid weight conflicts
             tf.keras.backend.clear_session()
             
-            # Compile the model before training
+            # Compile the model with enhanced optimizer settings
             model.compile(
-                optimizer=optimizers.Adam(learning_rate=0.001),
+                optimizer=optimizers.Adam(learning_rate=0.0005, beta_1=0.9, beta_2=0.999),
                 loss='binary_crossentropy',
-                metrics=['accuracy']
+                metrics=['accuracy', 'precision', 'recall']
             )
             
-            # Get data generators
-            train_gen, val_gen = self.create_data_generators(batch_size=32)
+            # Get data generators with smaller batch size for better accuracy
+            train_gen, val_gen = self.create_data_generators(batch_size=16)
             
             # Custom callback to update session state during training
             class SessionUpdateCallback(callbacks.Callback):
