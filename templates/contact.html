@@ -201,6 +201,53 @@
             box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
         
+        .download-card {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .download-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        }
+        
+        .download-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .download-info {
+            flex: 1;
+        }
+        
+        .btn-outline-primary {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-color: var(--primary-color);
+            color: white;
+            transform: translateY(-1px);
+        }
+        
         /* Dark theme styles */
         .dark-theme {
             background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
@@ -250,6 +297,28 @@
             background: linear-gradient(135deg, #f39c12, #e67e22);
         }
         
+        .dark-theme .download-card {
+            background: rgba(52, 73, 94, 0.8);
+            border-color: #5d6d7e;
+            color: #ecf0f1;
+        }
+        
+        .dark-theme .download-card:hover {
+            border-color: #3498db;
+            background: rgba(52, 73, 94, 0.9);
+        }
+        
+        .dark-theme .btn-outline-primary {
+            border-color: #3498db;
+            color: #3498db;
+        }
+        
+        .dark-theme .btn-outline-primary:hover {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-color: #3498db;
+            color: white;
+        }
+        
         @media (max-width: 768px) {
             .page-title {
                 font-size: 2.5rem;
@@ -282,9 +351,6 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" href="/"><i class="fas fa-home me-1"></i>Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/gallery"><i class="fas fa-images me-1"></i>Gallery</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/about"><i class="fas fa-info-circle me-1"></i>About</a>
@@ -462,6 +528,71 @@
                                 </div>
                             </fieldset>
                         </form>
+                    </div>
+                    
+                    <!-- Download Section -->
+                    <div class="contact-form mt-4">
+                        <h4 class="mb-4">
+                            <i class="fas fa-download me-2"></i>Project Resources
+                        </h4>
+                        <p class="text-muted mb-4">Download our comprehensive technical documentation and presentation materials</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="download-card">
+                                    <div class="download-icon">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </div>
+                                    <div class="download-info">
+                                        <h6 class="mb-1">Technical Report</h6>
+                                        <p class="text-muted small mb-2">Comprehensive technical documentation covering AI deepfake detection methodology, implementation, and results.</p>
+                                        <a href="/download/report" class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-download me-1"></i>Download PDF
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <div class="download-card">
+                                    <div class="download-icon">
+                                        <i class="fas fa-presentation-screen"></i>
+                                    </div>
+                                    <div class="download-info">
+                                        <h6 class="mb-1">Seminar Presentation</h6>
+                                        <p class="text-muted small mb-2">Technical seminar presentation slides with visual demonstrations and project overview.</p>
+                                        <a href="/download/ppt" class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-download me-1"></i>Download PPT
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3 p-3 bg-light rounded">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <i class="fab fa-github text-primary me-2"></i>
+                                    <small class="text-muted">
+                                        <strong>GitHub Repository:</strong> Access source code and documentation
+                                    </small>
+                                </div>
+                                <a href="https://github.com/omkarkalagi/Ai-Deepfake-Detector" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                    <i class="fab fa-github me-1"></i>View on GitHub
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-2 p-3 bg-info bg-opacity-10 rounded">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-info-circle text-info me-2"></i>
+                                <small class="text-info">
+                                    <strong>Direct Links:</strong> 
+                                    <a href="https://github.com/omkarkalagi/Ai-Deepfake-Detector/raw/main/static/Technical_Seminar_Report.pdf" target="_blank" class="text-info">Report</a> | 
+                                    <a href="https://github.com/omkarkalagi/Ai-Deepfake-Detector/raw/main/static/Tech%20Sem%20PPT.pptx" target="_blank" class="text-info">PPT</a>
+                                </small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
