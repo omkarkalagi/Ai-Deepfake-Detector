@@ -261,25 +261,18 @@ class MultiTrainingSession:
         model = models.Model(inputs=inputs, outputs=predictions)
         return model
     
-    def create_synthetic_data(self, num_samples=1000):
-        """Create synthetic training data for demonstration"""
+    def create_synthetic_data(self, num_samples=2000):
+        """Create enhanced synthetic training data with web-sourced patterns"""
+        logger.info(f"Creating {num_samples} enhanced synthetic samples...")
+        
+        # Create directories
+        os.makedirs('synthetic_data/train/real', exist_ok=True)
+        os.makedirs('synthetic_data/train/fake', exist_ok=True)
+        os.makedirs('synthetic_data/val/real', exist_ok=True)
+        os.makedirs('synthetic_data/val/fake', exist_ok=True)
+        
         try:
-            logger.info("Creating synthetic training data...")
-            
-            # Clean up existing synthetic data
-            if os.path.exists('synthetic_data'):
-                shutil.rmtree('synthetic_data')
-            
-            # Create fresh directories
-            os.makedirs('synthetic_data/train/real', exist_ok=True)
-            os.makedirs('synthetic_data/train/fake', exist_ok=True)
-            os.makedirs('synthetic_data/val/real', exist_ok=True)
-            os.makedirs('synthetic_data/val/fake', exist_ok=True)
-            
-            logger.info("Created directory structure for synthetic data")
-            
-            # Generate synthetic images with meaningful patterns
-            for i in range(num_samples // 2):
+            for i in range(num_samples):
                 # Real images - natural face-like patterns
                 real_img = np.zeros((224, 224, 3))
                 
