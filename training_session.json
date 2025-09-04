@@ -1,12 +1,12 @@
 {
-  "model_name": "training_session_20250904_021452",
+  "model_name": "training_session_20250904_093452",
   "epochs": 100,
-  "completed_epochs": 4,
+  "completed_epochs": 3,
   "status": "training",
-  "current_accuracy": 0.9985714554786682,
+  "current_accuracy": 1.0,
   "current_val_accuracy": 1.0,
-  "current_loss": 0.00577534968033433,
-  "current_val_loss": 0.00013106045662425458,
-  "progress": 4.0,
-  "last_update": "2025-09-04T02:20:24.959422"
+  "current_loss": 0.0008187246276065707,
+  "current_val_loss": 0.0008402812527492642,
+  "progress": 3.0,
+  "last_update": "2025-09-04T09:38:48.742325"
 }
