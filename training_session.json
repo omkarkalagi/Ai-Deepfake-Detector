@@ -1,12 +1,9 @@
 {
-  "model_name": "training_session_20250904_093452",
+  "model_name": "training_session_20250918_123033",
   "epochs": 100,
-  "completed_epochs": 3,
+  "batch_size": 32,
+  "learning_rate": 0.001,
+  "completed_epochs": 0,
   "status": "training",
-  "current_accuracy": 1.0,
-  "current_val_accuracy": 1.0,
-  "current_loss": 0.0008187246276065707,
-  "current_val_loss": 0.0008402812527492642,
-  "progress": 3.0,
-  "last_update": "2025-09-04T09:38:48.742325"
+  "start_time": "2025-09-18T12:30:33.633866"
 }

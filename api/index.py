@@ -41,9 +41,8 @@ try:
 except Exception:
     print("PIL not available - some features will use fallbacks")
 
-
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'uploads'
+app = Flask(__name__, static_folder='../static', template_folder='../templates')
+app.config['UPLOAD_FOLDER'] = '/tmp/uploads'
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 10MB max file size
 
 # Ensure uploads directory exists
@@ -143,172 +142,10 @@ def get_model_stats():
     return jsonify(model_metrics)
 
 # Additional page routes
-
 @app.route('/training')
 def training():
     """Training dashboard page."""
     return render_template('training.html')
-
-@app.route('/api/start_training', methods=['POST'])
-def start_training():
-    """API endpoint to start model training."""
-    try:
-        data = request.get_json()
-        epochs = data.get('epochs', 10)
-        batch_size = data.get('batch_size', 32)
-        learning_rate = data.get('learning_rate', 0.001)
-        
-        # Import training function
-        from train_model_enhanced import MultiTrainingSession
-        
-        trainer = MultiTrainingSession()
-        
-        # Check if we can resume previous training
-        can_resume, session_data = trainer.can_resume_training()
-        
-        if can_resume:
-            # Resume previous training
-            model_name = session_data['model_name']
-            completed_epochs = session_data.get('completed_epochs', 0)
-            remaining_epochs = epochs - completed_epochs
-            
-            if remaining_epochs > 0:
-                result = trainer.resume_training(session_data, remaining_epochs)
-                return jsonify({
-                    'status': 'success',
-                    'message': f'Resumed training from epoch {completed_epochs}',
-                    'result': result,
-                    'resumed': True
-                })
-            else:
-                return jsonify({
-                    'status': 'success',
-                    'message': 'Training already completed',
-                    'result': session_data,
-                    'resumed': False
-                })
-        else:
-            # Start new training session
-            trainer.create_synthetic_data(1000)
-            
-            # Save initial session state
-            session_data = {
-                'model_name': f"training_session_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
-                'epochs': epochs,
-                'batch_size': batch_size,
-                'learning_rate': learning_rate,
-                'completed_epochs': 0,
-                'status': 'training',
-                'start_time': datetime.now().isoformat()
-            }
-            trainer.save_session_state(session_data)
-            
-            try:
-                result = trainer.train_model_iteration(
-                    trainer.create_model_v1,
-                    session_data['model_name'],
-                    epochs
-                )
-                if result is None:
-                    raise Exception("Model training failed to return result")
-            except Exception as e:
-                logger.error(f"Training error: {str(e)}")
-                return jsonify({
-                    'status': 'error',
-                    'message': f'Training failed: {str(e)}'
-                }), 500
-            
-            return jsonify({
-                'status': 'success',
-                'message': 'New training started successfully',
-                'result': result,
-                'resumed': False
-            })
-        
-    except Exception as e:
-        return jsonify({
-            'status': 'error',
-            'message': f'Training failed: {str(e)}'
-        }), 500
-
-@app.route('/api/download_model')
-def download_model():
-    """Download the trained model."""
-    try:
-        from train_model_enhanced import MultiTrainingSession
-        trainer = MultiTrainingSession()
-        
-        # Check if we have a trained model
-        can_resume, session_data = trainer.can_resume_training()
-        if can_resume and session_data.get('status') == 'completed':
-            model_path = session_data.get('model_path')
-            if model_path and os.path.exists(model_path):
-                return send_from_directory(
-                    os.path.dirname(model_path),
-                    os.path.basename(model_path),
-                    as_attachment=True,
-                    download_name='enhanced_deepfake_detector.keras'
-                )
-        return jsonify({
-            'status': 'error',
-            'message': 'No trained model available for download'
-        }), 404
-    except Exception as e:
-        return jsonify({
-            'status': 'error',
-            'message': f'Download failed: {str(e)}'
-        }), 500
-
-@app.route('/api/training_status')
-def training_status():
-    """Get current training status."""
-    try:
-        from train_model_enhanced import MultiTrainingSession
-        trainer = MultiTrainingSession()
-        
-        # Check if we have an active training session
-        can_resume, session_data = trainer.can_resume_training()
-        
-        if not can_resume:
-            return jsonify({
-                'status': 'idle',
-                'current_epoch': 0,
-                'total_epochs': 0,
-                'metrics': {
-                    'accuracy': 0.0,
-                    'loss': 0.0,
-                    'precision': 0.0,
-                    'recall': 0.0
-                }
-            })
-            
-        status = session_data.get('status', 'idle')
-        current_epoch = session_data.get('completed_epochs', 0)
-        total_epochs = session_data.get('epochs', 100)
-        progress = (current_epoch / total_epochs) * 100 if total_epochs > 0 else 0
-        
-        response = {
-            'status': status,
-            'progress': progress,
-            'current_epoch': current_epoch,
-            'total_epochs': total_epochs,
-            'metrics': {
-                'accuracy': session_data.get('accuracy', 0),
-                'loss': session_data.get('loss', 0),
-                'precision': session_data.get('precision', 0),
-                'recall': session_data.get('recall', 0)
-            }
-        }
-        
-        if status == 'completed':
-            response['model_available'] = bool(session_data.get('model_path'))
-            
-        return jsonify(response)
-    except Exception as e:
-        return jsonify({
-            'status': 'error',
-            'message': str(e)
-        }), 500
 
 @app.route('/statistics')
 def statistics():
@@ -728,8 +565,10 @@ def create_visualization(file_path, scores, prediction):
         print(f"Error creating visualization: {e}")
         return "/static/deepfake-detector.png"  # Fallback image
 
+# Vercel serverless function handler
+def handler(request):
+    return app(request.environ, lambda *args: None)
+
 if __name__ == '__main__':
-    if not os.path.exists('uploads'):
-        os.makedirs('uploads')
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=False, host='0.0.0.0', port=port)

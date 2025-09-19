@@ -164,8 +164,23 @@ deepfake-detector/
 # Install Vercel CLI
 npm i -g vercel
 
-# Deploy
+# Login to Vercel
+vercel login
+
+# Deploy to Vercel
 vercel --prod
+
+# Or connect your GitHub repository directly at vercel.com
+```
+
+### Railway (Alternative)
+```bash
+# Install Railway CLI
+npm i -g @railway/cli
+
+# Login and deploy
+railway login
+railway up
 ```
 
 ## 🤝 Contributing
