@@ -1,20 +1,51 @@
-# Ignore large files and directories for Vercel deployment
-*.keras
-*.h5
-*.pkl
-*.joblib
-data/
+# Datasets and training data
 datasets/
+data/
+real_data/
 synthetic_data/
 heavy_training_data/
-real_data/
-uploads/
-logs/
+sample_images/
+
+# Model files
+models/
 checkpoints/
-training_results_*.json
-training_session.json
-cloud_upload_results.json
-*.log
-tmp/
-temp/
-.tmp/
+
+# Logs and uploads
+logs/
+uploads/
+
+# Documentation
+*.md
+!README.md
+
+# Git files
+.git/
+.github/
+
+# IDE files
+.vscode/
+.idea/
+.qodo/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Other
+.vercel/
+.railwayignore
+run.py
+requirements-full.txt
+requirements-vercel.txt
