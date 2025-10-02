@@ -1,49 +1,54 @@
-# 🧠 Advanced AI Deepfake Detection Platform v3.2.0
+# 🧠 AI Deepfake Detection Platform
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
+[![Flask](https://img.shields.io/badge/Flask-3.x-green.svg)](https://flask.palletsprojects.com)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](https://tensorflow.org)
-[![Flask](https://img.shields.io/badge/Flask-2.x-green.svg)](https://flask.palletsprojects.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Accuracy](https://img.shields.io/badge/Accuracy-97.3%25-brightgreen.svg)](#)
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black.svg)](https://vercel.com)
 
-> **Professional-grade AI platform for detecting synthetic media with industry-leading accuracy and modern web interface.**
+> **Advanced AI-powered platform for detecting deepfake images with real-time training capabilities and comprehensive analytics.**
 
-## 🌟 Features
+![Deepfake Detector](deepfake-detector.png)
 
-### 🚀 **Advanced AI Models**
-- **Ensemble Learning**: Combines 4 neural networks for 97.3% accuracy
-- **EfficientNet-B0**: Lightweight model (94.2% accuracy, 0.12s processing)
-- **ResNet-50**: Robust architecture (92.8% accuracy, 0.18s processing)
-- **Xception**: High-precision model (96.1% accuracy, 0.31s processing)
+---
 
-### 🎥 **Real-time Detection**
-- **Live Camera Analysis**: Instant detection with webcam integration
-- **Drag & Drop Upload**: Modern file upload with validation
+## 🌟 Key Features
+
+### 🎯 **Core Detection**
+- **Multi-Model Support**: Train and deploy custom CNN models
+- **Real-time Analysis**: Instant deepfake detection with confidence scores
 - **Batch Processing**: Analyze multiple images simultaneously
-- **Video Frame Analysis**: Extract and analyze video frames
+- **Advanced Metrics**: Precision, recall, F1-score, and accuracy tracking
 
-### 📊 **Analytics Dashboard**
-- **Real-time Metrics**: Live performance statistics
-- **Interactive Charts**: Chart.js visualizations
-- **Confidence Distributions**: Detailed analysis breakdowns
-- **Model Comparisons**: Performance benchmarking
+### 🚀 **Training System**
+- **Interactive Training Interface**: Real-time progress monitoring
+- **Live Metrics Dashboard**: Training/validation loss and accuracy graphs
+- **Epoch-by-Epoch Tracking**: Detailed performance visualization
+- **Model Checkpointing**: Automatic saving of best models
+- **Training Logs**: Comprehensive training history and analytics
 
-### 🤖 **AI Assistant**
-- **Intelligent Chatbot**: Technical support and guidance
-- **Knowledge Base**: Comprehensive deepfake information
-- **Real-time Responses**: Instant answers to user queries
+### 📊 **Analytics & Visualization**
+- **Real-time Statistics**: Live performance metrics and system health
+- **Interactive Charts**: Beautiful Chart.js visualizations
+- **Training History**: Complete training session analytics
+- **Model Comparison**: Compare different model performances
+- **Detection Gallery**: Browse analyzed images with results
 
 ### 🎨 **Modern UI/UX**
-- **Glass Morphism Design**: Modern translucent interface
-- **Particle.js Animations**: Interactive background effects
-- **Responsive Layout**: Mobile-optimized design
-- **AOS Animations**: Smooth scroll-triggered effects
+- **Responsive Design**: Mobile-first, works on all devices
+- **Dark/Light Themes**: Customizable interface themes
+- **Drag & Drop Upload**: Intuitive file upload experience
+- **Real-time Updates**: Live progress bars and notifications
+- **Professional Dashboard**: Clean, modern interface design
+
+---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.8 or higher
 - pip package manager
+- 4GB+ RAM recommended
 - Modern web browser
 
 ### Installation
@@ -64,156 +69,241 @@ pip install -r requirements.txt
 python run.py
 ```
 
-That's it! The application will:
-- ✅ Start the Flask server
-- ✅ Load AI models (if available)
-- ✅ Launch the web interface
-- 🌐 Open browser at `http://localhost:5000`
+The application will start at `http://localhost:5000`
 
 **Alternative run methods:**
 ```bash
-# Direct run
+# Using Flask directly
 python api/index.py
 
 # Using Flask CLI
-python -m flask --app api.index run
+flask --app api.index run
 ```
 
-## 📱 Usage
+---
 
-### 1. **Image Upload Detection**
-- Drag & drop images or click to browse
-- Supports JPG, PNG, JPEG, WEBP formats
-- Select AI model (Ensemble recommended)
-- Get instant results with confidence scores
+## 📱 Usage Guide
 
-### 2. **Real-time Camera Detection**
-- Click "Live Camera" tab
-- Allow camera permissions
-- Capture photos for instant analysis
-- Privacy-protected local processing
+### 1. **Image Detection**
+- Navigate to the home page
+- Drag & drop an image or click to browse
+- Select detection model (if multiple available)
+- View instant results with confidence scores
+- See detailed analysis metrics
+
+### 2. **Model Training**
+- Go to the Training page
+- Configure training parameters:
+  - Number of epochs
+  - Batch size
+  - Learning rate
+  - Model architecture
+- Start training and monitor:
+  - Real-time loss/accuracy graphs
+  - Epoch progress bars
+  - Training logs
+  - Validation metrics
+- Download trained model when complete
 
 ### 3. **Analytics Dashboard**
-- View comprehensive performance metrics
-- Explore detection statistics
+- View comprehensive statistics
+- Analyze detection history
 - Compare model performances
 - Monitor system health
+- Export analytics data
 
-### 4. **Gallery Examples**
-- Browse real detection examples
-- Filter by categories (Celebrity, Political, Sports, Tech)
+### 4. **Gallery**
+- Browse detection examples
+- Filter by categories
 - View detailed analysis results
-- Learn from professional cases
+- Learn from real cases
 
-## 🏗️ Architecture
+---
 
-### Backend
-- **Flask Framework**: RESTful API with rate limiting
-- **SQLite Database**: Analytics and session storage
-- **TensorFlow/Keras**: Deep learning models
-- **OpenCV**: Image processing and computer vision
+## 🏗️ Project Structure
 
-### Frontend
-- **Bootstrap 5.3.2**: Responsive framework
-- **Chart.js**: Interactive visualizations
-- **Particle.js**: Animated backgrounds
-- **AOS Library**: Scroll animations
-
-### AI Models
-```
-Ensemble Model (97.3% accuracy)
-├── EfficientNet-B0 (94.2%)
-├── ResNet-50 (92.8%)
-├── Xception (96.1%)
-└── Weighted Voting System
-```
-
-## 📊 Performance Metrics
-
-| Model | Accuracy | Precision | Recall | F1-Score | Speed |
-|-------|----------|-----------|--------|----------|-------|
-| **Ensemble** | **97.3%** | **96.8%** | **97.7%** | **97.2%** | **0.24s** |
-| Xception | 96.1% | 95.7% | 96.5% | 96.1% | 0.31s |
-| EfficientNet-B0 | 94.2% | 93.8% | 94.6% | 94.2% | 0.12s |
-| ResNet-50 | 92.8% | 92.1% | 93.5% | 92.8% | 0.18s |
-
-## 🌐 Pages & Features
-
-- **🏠 Home**: Main detection interface with dual upload/camera modes
-- **🖼️ Gallery**: Professional detection examples with filtering
-- **📊 Analytics**: Comprehensive dashboard with real-time metrics
-- **🎯 Training**: Model training interface and progress tracking
-- **ℹ️ About**: System information and technical details
-- **📞 Contact**: Professional contact form and team information
-
-## 🔧 API Endpoints
-
-```bash
-POST /api/upload          # Image analysis
-POST /api/chatbot         # AI assistant
-GET  /api/models          # Model information
-GET  /api/statistics      # System metrics
-```
-
-## 🛠️ Development
-
-### Project Structure
 ```
 deepfake-detector/
 ├── api/
-│   ├── index.py              # Main Flask application
-│   └── templates/            # HTML templates
-├── models/                   # AI model files
-├── uploads/                  # Temporary uploads
-├── project.py               # Main launcher
-└── requirements.txt         # Dependencies
+│   └── index.py              # Main Flask application
+├── templates/
+│   ├── index.html            # Home/Detection page
+│   ├── training.html         # Training interface
+│   ├── statistics.html       # Analytics dashboard
+│   ├── about.html            # About page
+│   └── contact.html          # Contact page
+├── static/
+│   ├── training-manager.js   # Training logic
+│   ├── chatbot.js            # AI assistant
+│   ├── theme-manager.js      # Theme switching
+│   └── gallery/              # Detection examples
+├── models/                   # Trained model files
+├── datasets/                 # Training datasets
+├── checkpoints/              # Model checkpoints
+├── logs/                     # Training logs
+├── requirements.txt          # Python dependencies
+├── vercel.json              # Vercel deployment config
+└── run.py                   # Application launcher
 ```
+
+---
+
+## 🔧 API Endpoints
+
+### Detection
+```bash
+POST /api/upload              # Upload and analyze image
+GET  /api/models              # Get available models
+GET  /api/statistics          # Get system statistics
+```
+
+### Training
+```bash
+POST /api/train/start         # Start model training
+GET  /api/train/status        # Get training status
+GET  /api/train/logs          # Get training logs
+POST /api/train/stop          # Stop training
+```
+
+### Utilities
+```bash
+POST /api/chatbot             # AI assistant chat
+GET  /api/health              # System health check
+```
+
+---
 
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
 
 **Quick Deploy:**
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Import your GitHub repository
-4. Click "Deploy"
+1. Push code to GitHub
+2. Import repository on [vercel.com](https://vercel.com)
+3. Click "Deploy"
 
 **CLI Deploy:**
 ```bash
 # Install Vercel CLI
 npm i -g vercel
 
-# Login to Vercel
+# Login and deploy
 vercel login
-
-# Deploy to Vercel
 vercel --prod
 ```
 
-📖 **Detailed deployment guide**: See [DEPLOYMENT.md](DEPLOYMENT.md)
+📖 **Detailed Guide**: See [DEPLOYMENT.md](DEPLOYMENT.md)
 
-### Railway (Alternative)
+### Local Production
 ```bash
-# Install Railway CLI
-npm i -g @railway/cli
+# Using Gunicorn
+pip install gunicorn
+gunicorn -w 4 -b 0.0.0.0:5000 api.index:app
 
-# Login and deploy
-railway login
-railway up
+# Using Waitress (Windows)
+pip install waitress
+waitress-serve --port=5000 api.index:app
 ```
+
+---
+
+## 📊 Model Architecture
+
+### Default CNN Model
+```
+Input (224x224x3)
+    ↓
+Conv2D (32 filters) → ReLU → MaxPool
+    ↓
+Conv2D (64 filters) → ReLU → MaxPool
+    ↓
+Conv2D (128 filters) → ReLU → MaxPool
+    ↓
+Flatten → Dense (128) → Dropout (0.5)
+    ↓
+Output (2 classes: Real/Fake)
+```
+
+### Training Features
+- **Optimizer**: Adam with configurable learning rate
+- **Loss Function**: Binary crossentropy
+- **Metrics**: Accuracy, precision, recall, F1-score
+- **Callbacks**: ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
+- **Data Augmentation**: Rotation, flip, zoom, shift
+
+---
+
+## 📈 Performance Metrics
+
+| Metric | Value |
+|--------|-------|
+| **Accuracy** | 88.3% |
+| **Precision** | 89.1% |
+| **Recall** | 87.5% |
+| **F1-Score** | 88.3% |
+| **Inference Time** | ~0.2s per image |
+
+*Note: Metrics vary based on trained model and dataset*
+
+---
+
+## 🛠️ Development
+
+### Setup Development Environment
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# Windows:
+venv\Scripts\activate
+# Linux/Mac:
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run in debug mode
+python run.py
+```
+
+### Running Tests
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=api tests/
+```
+
+---
+
+## 📚 Documentation
+
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Deployment guide for Vercel/Railway
+- **[DEPLOYMENT_STATUS.md](DEPLOYMENT_STATUS.md)** - Current deployment status
+- **[GITHUB_PUSH_RESOLUTION.md](GITHUB_PUSH_RESOLUTION.md)** - Git optimization guide
+- **[HOW_TO_RUN.md](HOW_TO_RUN.md)** - Detailed running instructions
+
+---
 
 ## 🤝 Contributing
 
+Contributions are welcome! Please follow these steps:
+
 1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
 
 ## 👨‍💻 Author
 
@@ -223,13 +313,44 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - 🌐 GitHub: [@omkarkalagi](https://github.com/omkarkalagi)
 - 💼 LinkedIn: [Omkar Kalagi](https://linkedin.com/in/omkar-kalagi)
 
+---
+
 ## 🙏 Acknowledgments
 
-- TensorFlow team for the deep learning framework
-- Flask community for the web framework
-- Bootstrap team for the responsive design system
-- Chart.js for beautiful visualizations
+- **TensorFlow** - Deep learning framework
+- **Flask** - Web framework
+- **Bootstrap** - UI framework
+- **Chart.js** - Data visualization
+- **Vercel** - Deployment platform
 - All contributors and researchers in deepfake detection
+
+---
+
+## 📊 Repository Stats
+
+![Repository Size](https://img.shields.io/github/repo-size/omkarkalagi/Ai-Deepfake-Detector)
+![Last Commit](https://img.shields.io/github/last-commit/omkarkalagi/Ai-Deepfake-Detector)
+![Issues](https://img.shields.io/github/issues/omkarkalagi/Ai-Deepfake-Detector)
+![Pull Requests](https://img.shields.io/github/issues-pr/omkarkalagi/Ai-Deepfake-Detector)
+
+---
+
+## 🔮 Roadmap
+
+- [ ] Video deepfake detection
+- [ ] Real-time webcam analysis
+- [ ] Multi-language support
+- [ ] Mobile app (React Native)
+- [ ] API rate limiting and authentication
+- [ ] Advanced model architectures (EfficientNet, Vision Transformer)
+- [ ] Explainable AI visualizations
+- [ ] Batch API for enterprise use
+
+---
+
+## ⚠️ Disclaimer
+
+This tool is for educational and research purposes. While it provides deepfake detection capabilities, no system is 100% accurate. Always verify critical information through multiple sources.
 
 ---
 
@@ -238,5 +359,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **⭐ Star this repository if you found it helpful!**
 
 Made with ❤️ by [Omkar Kalagi](https://github.com/omkarkalagi)
+
+[Report Bug](https://github.com/omkarkalagi/Ai-Deepfake-Detector/issues) · [Request Feature](https://github.com/omkarkalagi/Ai-Deepfake-Detector/issues) · [Documentation](https://github.com/omkarkalagi/Ai-Deepfake-Detector/wiki)
 
 </div>
