@@ -299,6 +299,22 @@ def contact():
     """Contact page."""
     return render_template('contact.html')
 
+@app.route('/download/report')
+def download_report():
+    """Download the technical report PDF."""
+    try:
+        return send_from_directory('../static', 'Omkar_Report.pdf', as_attachment=True)
+    except Exception as e:
+        return jsonify({'error': 'Report file not found'}), 404
+
+@app.route('/download/ppt')
+def download_ppt():
+    """Download the presentation PPT."""
+    try:
+        return send_from_directory('../static', 'Omkar.pptx', as_attachment=True)
+    except Exception as e:
+        return jsonify({'error': 'Presentation file not found'}), 404
+
 @app.route('/realtime')
 def realtime():
     """Real-time detection page."""
