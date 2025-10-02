@@ -39,19 +39,20 @@ venv.bak/
 .DS_Store
 .DS_Store?
 ._*
+{{ ... }}
 .Spotlight-V100
 .Trashes
 ehthumbs.db
 Thumbs.db
 
-# Vercel
+# Vercel deployment configuration
 .vercel/
-.vercelignore
 
 # Railway
 .railway/
 
 # Model files (too large for git)
+{{ ... }}
 *.keras
 *.h5
 *.pkl
@@ -86,3 +87,19 @@ cloud_upload_results.json
 
 # Checkpoints
 checkpoints/
+
+# Documentation files (keep only README and HOW_TO_RUN)
+COMPLETE_GUIDE.md
+NEXT_STEPS.md
+PROJECT_STATUS.md
+START_HERE.txt
+
+# Office files
+*.pptx
+*.pdf
+*.docx
+
+# Node modules (if any)
+node_modules/
+package-lock.json
+yarn.lock

@@ -1,0 +1,20 @@
+# Ignore large files and directories for Vercel deployment
+*.keras
+*.h5
+*.pkl
+*.joblib
+data/
+datasets/
+synthetic_data/
+heavy_training_data/
+real_data/
+uploads/
+logs/
+checkpoints/
+training_results_*.json
+training_session.json
+cloud_upload_results.json
+*.log
+tmp/
+temp/
+.tmp/

@@ -1,9 +1,0 @@
-{
-  "model_name": "training_session_20250918_123033",
-  "epochs": 100,
-  "batch_size": 32,
-  "learning_rate": 0.001,
-  "completed_epochs": 0,
-  "status": "training",
-  "start_time": "2025-09-18T12:30:33.633866"
-}

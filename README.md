@@ -54,18 +54,30 @@ git clone https://github.com/omkarkalagi/Ai-Deepfake-Detector.git
 cd Ai-Deepfake-Detector
 ```
 
-2. **Run the application**
+2. **Install dependencies**
 ```bash
-python project.py
+pip install -r requirements.txt
+```
+
+3. **Run the application**
+```bash
+python run.py
 ```
 
 That's it! The application will:
-- ✅ Check Python compatibility
-- ✅ Create virtual environment
-- ✅ Install dependencies automatically
-- ✅ Download AI models
+- ✅ Start the Flask server
+- ✅ Load AI models (if available)
 - ✅ Launch the web interface
 - 🌐 Open browser at `http://localhost:5000`
+
+**Alternative run methods:**
+```bash
+# Direct run
+python api/index.py
+
+# Using Flask CLI
+python -m flask --app api.index run
+```
 
 ## 📱 Usage
 
@@ -160,6 +172,14 @@ deepfake-detector/
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
+
+**Quick Deploy:**
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com)
+3. Import your GitHub repository
+4. Click "Deploy"
+
+**CLI Deploy:**
 ```bash
 # Install Vercel CLI
 npm i -g vercel
@@ -169,9 +189,9 @@ vercel login
 
 # Deploy to Vercel
 vercel --prod
-
-# Or connect your GitHub repository directly at vercel.com
 ```
+
+📖 **Detailed deployment guide**: See [DEPLOYMENT.md](DEPLOYMENT.md)
 
 ### Railway (Alternative)
 ```bash

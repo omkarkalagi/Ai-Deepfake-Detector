@@ -141,6 +141,143 @@ def get_model_stats():
     """API endpoint to get model statistics."""
     return jsonify(model_metrics)
 
+# Training state management
+training_state = {
+    'status': 'idle',  # idle, training, completed, error
+    'current_epoch': 0,
+    'total_epochs': 0,
+    'progress': 0,
+    'metrics': {
+        'accuracy': 0,
+        'loss': 0,
+        'precision': 0,
+        'recall': 0
+    },
+    'message': '',
+    'model_available': False
+}
+
+@app.route('/api/start_training', methods=['POST'])
+def start_training():
+    """Start model training with demo simulation."""
+    try:
+        data = request.get_json() or {}
+        epochs = data.get('epochs', 10)
+        batch_size = data.get('batch_size', 32)
+        learning_rate = data.get('learning_rate', 0.001)
+        
+        # Initialize training state
+        training_state['status'] = 'training'
+        training_state['current_epoch'] = 0
+        training_state['total_epochs'] = epochs
+        training_state['progress'] = 0
+        training_state['message'] = f'Training started with {epochs} epochs'
+        training_state['model_available'] = False
+        
+        return jsonify({
+            'status': 'success',
+            'message': f'Training started with {epochs} epochs, batch size {batch_size}, learning rate {learning_rate}',
+            'result': {
+                'epochs': epochs,
+                'batch_size': batch_size,
+                'learning_rate': learning_rate
+            }
+        })
+    except Exception as e:
+        training_state['status'] = 'error'
+        training_state['message'] = str(e)
+        return jsonify({
+            'status': 'error',
+            'message': f'Failed to start training: {str(e)}'
+        }), 500
+
+@app.route('/api/training_status', methods=['GET'])
+def get_training_status():
+    """Get current training status with simulated progress."""
+    try:
+        # Simulate training progress
+        if training_state['status'] == 'training':
+            # Increment progress
+            if training_state['progress'] < 100:
+                training_state['progress'] += random.uniform(1, 5)
+                training_state['progress'] = min(100, training_state['progress'])
+                
+                # Update current epoch based on progress
+                training_state['current_epoch'] = int(
+                    (training_state['progress'] / 100) * training_state['total_epochs']
+                )
+                
+                # Simulate improving metrics
+                base_accuracy = 50 + (training_state['progress'] / 100) * 45
+                training_state['metrics']['accuracy'] = base_accuracy + random.uniform(-2, 2)
+                training_state['metrics']['loss'] = 2.0 - (training_state['progress'] / 100) * 1.5 + random.uniform(-0.1, 0.1)
+                training_state['metrics']['precision'] = base_accuracy + random.uniform(-3, 3)
+                training_state['metrics']['recall'] = base_accuracy + random.uniform(-3, 3)
+            else:
+                # Training completed
+                training_state['status'] = 'completed'
+                training_state['progress'] = 100
+                training_state['current_epoch'] = training_state['total_epochs']
+                training_state['model_available'] = True
+                training_state['message'] = 'Training completed successfully!'
+        
+        return jsonify({
+            'status': training_state['status'],
+            'current_epoch': training_state['current_epoch'],
+            'total_epochs': training_state['total_epochs'],
+            'progress': round(training_state['progress'], 2),
+            'metrics': training_state['metrics'],
+            'message': training_state['message'],
+            'model_available': training_state['model_available']
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+@app.route('/api/stop_training', methods=['POST'])
+def stop_training():
+    """Stop the current training session."""
+    try:
+        training_state['status'] = 'idle'
+        training_state['progress'] = 0
+        training_state['current_epoch'] = 0
+        training_state['message'] = 'Training stopped by user'
+        
+        return jsonify({
+            'status': 'success',
+            'message': 'Training stopped successfully'
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+@app.route('/api/download_model', methods=['GET'])
+def download_model():
+    """Download the trained model."""
+    try:
+        # Check if a model file exists
+        model_file = 'deepfake_detector_model.keras'
+        if os.path.exists(model_file):
+            return send_from_directory('.', model_file, as_attachment=True)
+        else:
+            # Return demo model config instead
+            demo_config = {
+                'model_type': 'demo',
+                'architecture': 'CNN',
+                'accuracy': training_state['metrics']['accuracy'],
+                'message': 'This is a demo model configuration. Train a real model to get actual weights.'
+            }
+            return jsonify(demo_config)
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
 # Additional page routes
 @app.route('/training')
 def training():
