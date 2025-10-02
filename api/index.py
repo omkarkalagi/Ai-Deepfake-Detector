@@ -702,9 +702,9 @@ def create_visualization(file_path, scores, prediction):
         print(f"Error creating visualization: {e}")
         return "/static/deepfake-detector.png"  # Fallback image
 
-# Vercel serverless function handler
-def handler(request):
-    return app(request.environ, lambda *args: None)
+# Export app for Vercel
+# Vercel will automatically use the 'app' object as the WSGI application
+# No need for a custom handler
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
