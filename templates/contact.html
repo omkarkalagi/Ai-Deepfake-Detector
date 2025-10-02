@@ -147,6 +147,38 @@
             margin-bottom: 30px;
         }
         
+        .download-section {
+            background: linear-gradient(135deg, #f6f8ff 0%, #f1f4ff 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        
+        .download-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 25px;
+            margin: 10px;
+            background: white;
+            border-radius: 10px;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+        }
+        
+        .download-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+            color: var(--secondary-color);
+        }
+        
+        .download-link i {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
         .contact-item {
             display: flex;
             align-items: center;
@@ -566,6 +598,21 @@
                                         </a>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Download Buttons Section -->
+                        <div class="mt-3 p-3 bg-light rounded">
+                            <h5 class="mb-3 text-primary">
+                                <i class="fas fa-download me-2"></i>Download Project Resources
+                            </h5>
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <a href="{{ url_for('static', filename='gallery/Omkar_Report.pdf') }}" class="btn btn-outline-primary" target="_blank">
+                                    <i class="fas fa-file-pdf me-2"></i>Technical Report
+                                </a>
+                                <a href="{{ url_for('static', filename='gallery/Omkar.pptx') }}" class="btn btn-outline-primary" target="_blank">
+                                    <i class="fas fa-file-powerpoint me-2"></i>Presentation
+                                </a>
                             </div>
                         </div>
                         
