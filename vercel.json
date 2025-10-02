@@ -1,12 +1,23 @@
 {
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/static/(.*)",
-      "destination": "/static/$1"
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
     },
     {
-      "source": "/(.*)",
-      "destination": "/api/index"
+      "src": "/(.*)",
+      "dest": "/api/index"
     }
-  ]
+  ],
+  "env": {
+    "FLASK_ENV": "production",
+    "FLASK_APP": "api/index.py"
+  }
 }
